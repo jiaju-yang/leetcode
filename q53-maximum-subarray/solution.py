@@ -7,6 +7,22 @@
 # @lc code=start
 from typing import List
 
+class DPSolution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        maximum = nums[0]
+        n = len(nums)
+        sums = [[None for j in range(i, n)] for i in range(n)]
+        for i in range(n):
+            sums[i][0] = nums[i]
+            if nums[i] > maximum:
+                    maximum = nums[i]
+            for j in range(i+1, n):
+                current = sums[i][j-1-i] + nums[j]
+                if current > maximum:
+                    maximum = current
+                sums[i][j-i] = current
+        return maximum
+
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         maximum = nums[0]
