@@ -35,4 +35,22 @@ class OptimalDPSolution:
                 maximum = current_max_suffix_sum
             previous_max_suffix_sum = current_max_suffix_sum
         return maximum
+
+
+class DivideAndConquerSolution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        def max_prefix_and_suffix_sum(nums, i, j):
+            if i == j:
+                return (nums[i], nums[i], nums[i], nums[i])
+            middle = (j+i) >> 1
+            maximum_f, all_f, prefix_f, suffix_f = max_prefix_and_suffix_sum(
+                nums, i, middle)
+            maximum_s, all_s, prefix_s, suffix_s = max_prefix_and_suffix_sum(
+                nums, middle + 1, j)
+            prefix = max(prefix_f, all_f + prefix_s)
+            suffix = max(suffix_s, all_s + suffix_f)
+            return (max(maximum_f, maximum_s, suffix_f + prefix_s), all_f + all_s, prefix, suffix)
+        return max_prefix_and_suffix_sum(nums, 0, len(nums)-1)[0]
+
+Solution = OptimalDPSolution
 # @lc code=end
