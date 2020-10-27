@@ -21,7 +21,7 @@ Time complexity: $O(n^2)$
 
 Three ways of defining the subproblem of DP in string: `(i,j)`, `(i, 0)`, `(0, i)`
 
-Here, if we define the subproblem using `(0, i)`, then we can get a better time complexity.
+Here, if we define the subproblem `(0, i)`, then we can get a better time complexity.
 
 ```python
 def max_suffix_sum(A, i):
@@ -29,3 +29,9 @@ def max_suffix_sum(A, i):
 ```
 
 Time complexity: $O(n)$
+
+# Divide And Conquer
+
+The difficulty is how to define the subproblem if we wanna get the maximum continuous sum from subproblems in $O(1)$.
+
+Time complexity: $T(n)=2T(\frac n2)+O(1) \implies O(n)$
