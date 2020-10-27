@@ -11,8 +11,8 @@ There are many repeated computations so we could use DP to avoid them. Use a 2-d
 Subproblem:
 
 ```python
-def sum(A, i, j):
-	return sum(A, i, j-1) + A[j]
+def sum(nums, i, j):
+	return sum(nums, i, j-1) + nums[j]
 ```
 
 Time complexity: $O(n^2)$
@@ -23,9 +23,11 @@ Three ways of defining the subproblem of DP in string: `(i,j)`, `(i, 0)`, `(0, i
 
 Here, if we define the subproblem `(0, i)`, then we can get a better time complexity.
 
+The trick is to define another problem recursively instead of the original problem recursively cause we cannot define the subproblem of the original problem in $O(1)$. Here the 'another' problem is 'the maximum sum of the suffixes of the array `nums[:j]`'.
+
 ```python
-def max_suffix_sum(A, i):
-	return max(max_suffix_sum(A, i-1) + A[i], A[i])
+def max_suffix_sum(nums, i):
+	return max(max_suffix_sum(nums, i-1) + nums[i], nums[i])
 ```
 
 Time complexity: $O(n)$
