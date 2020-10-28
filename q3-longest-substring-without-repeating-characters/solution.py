@@ -20,6 +20,18 @@ class DPSolution:
         return maximum
 
 
-Solution = DPSolution
+class OptimalDPSolution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        start = max_length = 0
+        currently_used = {}
+        for i, c in enumerate(s):
+            if c in currently_used and currently_used[c] >= start:
+                start = currently_used[c] + 1
+            max_length = max(max_length, i - start + 1)
+            currently_used[c] = i
+        return max_length
+
+
+Solution = OptimalDPSolution
 # @lc code=end
 
