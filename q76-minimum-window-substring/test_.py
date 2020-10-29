@@ -17,3 +17,4 @@ def test_corner_cases():
     assert solve('AB', 'A') == 'A'
     assert solve('A', 'A') == 'A'
     assert solve('A', 'AA') == ''
+    assert solve('AB', 'B') == 'B'

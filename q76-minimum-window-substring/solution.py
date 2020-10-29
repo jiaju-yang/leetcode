@@ -5,30 +5,32 @@
 #
 
 # @lc code=start
-from collections import defaultdict
+from collections import Counter
 
 
 class DPSolution:
     def minWindow(self, s: str, t: str) -> str:
-        shortest_s = ''
-        need = defaultdict(int)
-        for c in t:
-            need[c] += 1
+        shortest_start = shortest_length = 0
+        start = None
+        need = Counter(t)
         uncovered = len(t)
         seen = {c: [] for c in t}
         for i, c in enumerate(s):
             if c in need:
                 seen[c].append(i)
                 if len(seen[c]) > need[c]:
-                    seen[c].pop(0)
+                    maybe_start = seen[c].pop(0)
+                    if start == maybe_start and uncovered == 0:
+                        start = min(indexes[0] for indexes in seen.values())
                 else:
                     uncovered -= 1
                 if uncovered == 0:
-                    start = min(indexes[0] for indexes in seen.values())
+                    if start is None:
+                        start = min(indexes[0] for indexes in seen.values())
                     current_length = i - start + 1
-                    if len(shortest_s) == 0 or current_length < len(shortest_s):
-                        shortest_s = s[start:start + current_length]
-        return shortest_s
+                    if shortest_length == 0 or current_length < shortest_length:
+                        shortest_start, shortest_length = start, current_length
+        return s[shortest_start: shortest_start + shortest_length]
 
 
 Solution = DPSolution
