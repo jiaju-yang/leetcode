@@ -33,5 +33,32 @@ class DPSolution:
         return s[shortest_start: shortest_start + shortest_length]
 
 
-Solution = DPSolution
+class AnotherDPSolution:
+    def minWindow(self, s: str, t: str) -> str:
+        shortest_start = shortest_length = 0
+        start = 0
+        need = Counter(t)
+        uncovered = len(t)
+        for i, c in enumerate(s):
+            if c not in need:
+                continue
+            if need[c] > 0:
+                uncovered -= 1
+            need[c] -= 1
+            if uncovered == 0:
+                while start < i:
+                    first_c = s[start]
+                    if first_c in need:
+                        if need[first_c] < 0:
+                            need[first_c] += 1
+                        else:
+                            break
+                    start += 1
+                current_length = i - start + 1
+                if current_length < shortest_length or shortest_length == 0:
+                    shortest_start, shortest_length = start, current_length
+        return s[shortest_start: shortest_start + shortest_length]
+
+
+Solution = AnotherDPSolution
 # @lc code=end
