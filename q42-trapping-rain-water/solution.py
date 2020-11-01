@@ -53,5 +53,26 @@ class StackSolution:
         return traped_water
 
 
-Solution = StackSolution
+class TwoPointersSolution:
+    def trap(self, heights: List[int]) -> int:
+        highest_left, highest_right = 0, len(heights) - 1
+        left, right = highest_left + 1, highest_right - 1
+        traped_water = 0
+        while left <= right:
+            if heights[highest_left] < heights[highest_right]:
+                if heights[left] < heights[highest_left]:
+                    traped_water += heights[highest_left] - heights[left]
+                else:
+                    highest_left = left
+                left += 1
+            else:
+                if heights[right] < heights[highest_right]:
+                    traped_water += heights[highest_right] - heights[right]
+                else:
+                    highest_right = right
+                right -= 1
+        return traped_water
+
+
+Solution = TwoPointersSolution
 # @lc code=end
