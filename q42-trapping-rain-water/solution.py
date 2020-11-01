@@ -3,7 +3,6 @@
 #
 # [42] Trapping Rain Water
 #
-
 # @lc code=start
 from typing import List
 
@@ -34,4 +33,25 @@ class FindHighestFirstSolution:
         return traped_water
 
 
+class StackSolution:
+    def trap(self, heights: List[int]) -> int:
+        traped_water = 0
+        lefts = []
+        lefts.append(0)
+        right = 1
+        while right < len(heights):
+            if heights[lefts[-1]] < heights[right]:
+                while len(lefts) > 1 and heights[lefts[-1]] < heights[right]:
+                    bottom = lefts.pop()
+                    left = lefts[-1]
+                    traped_water += ((right - left - 1) *
+                                     (min(heights[left], heights[right]) - heights[bottom]))
+            while lefts and heights[right] >= heights[lefts[-1]]:
+                lefts.pop()
+            lefts.append(right)
+            right += 1
+        return traped_water
+
+
+Solution = StackSolution
 # @lc code=end

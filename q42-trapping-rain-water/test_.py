@@ -11,6 +11,7 @@ def test_default():
 def test_corner_cases():
     assert solve([0, 0]) == 0
     assert solve([1, 1]) == 0
+    assert solve([0, 1]) == 0
     assert solve([1]) == 0
     assert solve([0]) == 0
     assert solve([1, 0, 1]) == 1
