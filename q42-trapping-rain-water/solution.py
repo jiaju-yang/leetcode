@@ -36,20 +36,16 @@ class FindHighestFirstSolution:
 class StackSolution:
     def trap(self, heights: List[int]) -> int:
         traped_water = 0
-        lefts = []
-        lefts.append(0)
-        right = 1
-        while right < len(heights):
-            if heights[lefts[-1]] < heights[right]:
-                while len(lefts) > 1 and heights[lefts[-1]] < heights[right]:
-                    bottom = lefts.pop()
-                    left = lefts[-1]
-                    traped_water += ((right - left - 1) *
-                                     (min(heights[left], heights[right]) - heights[bottom]))
-            while lefts and heights[right] >= heights[lefts[-1]]:
-                lefts.pop()
+        lefts = [0]
+        for right in range(1, len(heights)):
+            while len(lefts) > 0 and heights[lefts[-1]] < heights[right]:
+                bottom = lefts.pop()
+                if len(lefts) == 0:
+                    break
+                left = lefts[-1]
+                traped_water += ((right - left - 1) *
+                                 (min(heights[left], heights[right]) - heights[bottom]))
             lefts.append(right)
-            right += 1
         return traped_water
 
 
@@ -74,5 +70,5 @@ class TwoPointersSolution:
         return traped_water
 
 
-Solution = TwoPointersSolution
+Solution = StackSolution
 # @lc code=end
