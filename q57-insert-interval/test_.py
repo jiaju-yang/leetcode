@@ -13,3 +13,4 @@ def test_corner_cases():
     assert solve([], [5, 7]) == [[5, 7]]
     assert solve([[1, 5]], [2, 3]) == [[1, 5]]
     assert solve([[1, 5]], [2, 7]) == [[1, 7]]
+    assert solve([[1, 5]], [6, 8]) == [[1, 5], [6, 8]]

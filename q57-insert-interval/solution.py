@@ -8,7 +8,7 @@
 from typing import List
 
 
-class Solution:
+class InPlaceSolution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         insert_location = 0
         while insert_location < len(intervals) and intervals[insert_location][0] < newInterval[0]:
@@ -24,4 +24,22 @@ class Solution:
             intervals[insert_location][1] = max(intervals[insert_location][1], intervals[subsequent][1])
             intervals.pop(subsequent)
         return intervals
+
+
+class NoneInPlaceSolution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        left, right = [], []
+        for interval in intervals:
+            if interval[1] < newInterval[0]:
+                left.append(interval)
+            elif interval[0] > newInterval[1]:
+                right.append(interval)
+            else:
+                newInterval[0] = min(interval[0], newInterval[0])
+                newInterval[1] = max(interval[1], newInterval[1])
+        left.append(newInterval)
+        left.extend(right)
+        return left
+
+Solution = NoneInPlaceSolution
 # @lc code=end
