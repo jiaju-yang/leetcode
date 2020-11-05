@@ -33,5 +33,20 @@ class IterativeSolution:
         return previous
 
 
-Solution = IterativeSolution
+class RecursiveSolution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        if not head:
+            return None
+        def driver(node):
+            if node.next:
+                previous, whole_head = driver(node.next)
+                previous.next = node
+                node.next = None
+                return (node, whole_head)
+            else:
+                return (node, node)
+        return driver(head)[1]
+
+
+Solution = RecursiveSolution
 # @lc code=end
