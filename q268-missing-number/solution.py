@@ -3,12 +3,11 @@
 #
 # [268] Missing Number
 #
-
 # @lc code=start
 from typing import List
 
 
-class Solution:
+class SwapSolution:
     def missingNumber(self, nums: List[int]) -> int:
         nums.append(None)
         none_position = len(nums) - 1
@@ -19,4 +18,15 @@ class Solution:
             if nums[i] is None:
                 none_position = i
         return none_position
+
+
+class XorSolution:
+    def missingNumber(self, nums: List[int]) -> int:
+        xor = len(nums)
+        for i, num in enumerate(nums):
+            xor ^= i ^ num
+        return xor
+
+
+Solution = XorSolution
 # @lc code=end
