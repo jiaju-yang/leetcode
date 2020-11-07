@@ -28,5 +28,13 @@ class XorSolution:
         return xor
 
 
-Solution = XorSolution
+class SumSolution:
+    def missingNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        expected_sum = n*(n+1) >> 1
+        actual_sum = sum(nums)
+        return expected_sum - actual_sum
+
+
+Solution = SumSolution
 # @lc code=end
