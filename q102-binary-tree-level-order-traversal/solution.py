@@ -35,4 +35,23 @@ class BFSSolution:
             result.append(vals)
         return result
 
+
+class DFSSolution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        result = []
+
+        def driver(node, i):
+            if not node:
+                return
+            try:
+                result[i].append(node.val)
+            except:
+                result.append([node.val])
+            driver(node.left, i+1)
+            driver(node.right, i+1)
+        driver(root, 0)
+        return result
+
+
+Solution = DFSSolution
 # @lc code=end
