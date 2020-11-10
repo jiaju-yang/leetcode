@@ -3,7 +3,6 @@
 #
 # [104] Maximum Depth of Binary Tree
 #
-
 # @lc code=start
 # Definition for a binary tree node.
 class TreeNode:
@@ -28,5 +27,20 @@ class BFSSolution:
         return depth
 
 
-Solution = BFSSolution
+class DFSSolution:
+    def maxDepth(self, root: TreeNode) -> int:
+        depth = 0
+
+        def driver(node, i):
+            if not node:
+                return
+            nonlocal depth
+            depth = max(depth, i)
+            driver(node.left, i + 1)
+            driver(node.right, i + 1)
+        driver(root, 1)
+        return depth
+
+
+Solution = DFSSolution
 # @lc code=end
