@@ -10,12 +10,10 @@ from typing import List
 class BitsSolution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         result = []
-        for i in range(pow(2, len(nums))):
-            item = []
-            for p, c in enumerate(bin(i)[2:][::-1]):
-                if c == '1':
-                    item.append(nums[p])
-            result.append(item)
+        n = len(nums)
+        for i in range(2**n, 2**(n+1)):
+            result.append([nums[p]
+                           for p, b in enumerate(bin(i)[3:]) if b == '1'])
         return result
 
 
@@ -39,5 +37,5 @@ class IterativeSolution:
         return result
 
 
-Solution = IterativeSolution
+Solution = BitsSolution
 # @lc code=end
