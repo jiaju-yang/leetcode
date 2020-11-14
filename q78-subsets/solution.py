@@ -3,12 +3,11 @@
 #
 # [78] Subsets
 #
-
 # @lc code=start
 from typing import List
 
 
-class Solution:
+class BitsSolution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         result = []
         for i in range(pow(2, len(nums))):
@@ -20,4 +19,25 @@ class Solution:
         return result
 
 
+class RecursiveSolution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) == 1:
+            return [[], [nums[0]]]
+        subsets = self.subsets(nums[1:])
+        result = []
+        for i in subsets:
+            result.append(i)
+            result.append(list(i) + [nums[0]])
+        return result
+
+
+class IterativeSolution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = [[]]
+        for num in nums:
+            result.extend([previous + [num] for previous in result])
+        return result
+
+
+Solution = IterativeSolution
 # @lc code=end
