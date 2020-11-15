@@ -11,12 +11,11 @@ class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
         result = [[]]
-        last_appended = None
+        precious_size = len(result)
         for i in range(len(nums)):
-            if i > 0 and nums[i] == nums[i-1]:
-                last_appended = [item + [nums[i]] for item in last_appended]
-            else:
-                last_appended = [previous + [nums[i]] for previous in result]
-            result.extend(last_appended)
+            if i == 0 or nums[i] != nums[i-1]:
+                precious_size = len(result)
+            for j in range(len(result) - precious_size, len(result)):
+                result.append(result[j] + [nums[i]])
         return result
 # @lc code=end
