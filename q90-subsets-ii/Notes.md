@@ -1,0 +1,3 @@
+# Observation
+
+This question is very similar to finding the subsets of distinct elements. Their basic ideas are the same: when adding a different element, the number of subsets should be doubled. But here when we add the same element, we cannot add it to the previous subsets because we have already added it. The subsets we should add the duplicate are the subsets with the duplicate. This observation is the key to solve this question.
