@@ -16,7 +16,6 @@ def test_default():
 
 
 def test_corner_cases():
-
     assert {frozenset(i) for i in solve([1])} == {
         frozenset(),
         frozenset([1])}

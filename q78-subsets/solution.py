@@ -37,5 +37,20 @@ class IterativeSolution:
         return result
 
 
-Solution = BitsSolution
+class BackTrackSolution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        def _back_track(start, curr, target_length):
+            if len(curr) == target_length:
+                result.append(curr[:])
+                return
+            curr.append(nums[start])
+            _back_track(start + 1, curr, target_length)
+            curr.pop()
+            _back_track(start + 1, curr, target_length - 1)
+        result = []
+        _back_track(0, [], len(nums))
+        return result
+
+
+Solution = BackTrackSolution
 # @lc code=end
