@@ -25,7 +25,7 @@ class RecursiveSolution:
         result = []
         for i in subsets:
             result.append(i)
-            result.append(list(i) + [nums[0]])
+            result.append(i + [nums[0]])
         return result
 
 
