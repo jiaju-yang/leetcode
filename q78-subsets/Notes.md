@@ -1,0 +1,3 @@
+# Backtrack Method
+
+Personally, this method is a little hard to coding. The basic idea of backtrack is for length $k \in [1, n]$, we find all different combinations whose length is $k$. When finding these combinations, each element has two options: in the combination or not in the combination. Thus, we choose to add it in the combination: `append`, or remove it from the combination: `pop`. Then, for each option, we recurse using the rest elements.
