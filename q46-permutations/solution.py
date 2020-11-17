@@ -8,7 +8,7 @@
 from typing import List
 
 
-class Solution:
+class RecursiveSolution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         if len(nums) == 1:
             return [nums]
@@ -20,5 +20,21 @@ class Solution:
             for p in sub_permutations:
                 result.append([nums[i]] + p)
         return result
-# @lc code=end
 
+
+class IterativeSolution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        result = [[]]
+        for i in range(len(nums)):
+            new_result = []
+            for pre_perm in result:
+                for j in range(len(pre_perm) + 1):
+                    perm = pre_perm[:]
+                    perm.insert(j, nums[i])
+                    new_result.append(perm)
+            result = new_result
+        return result
+
+
+Solution = IterativeSolution
+# @lc code=end
