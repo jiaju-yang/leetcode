@@ -6,6 +6,7 @@
 
 # @lc code=start
 from typing import List
+from collections import Counter
 
 
 class RecursiveSolution:
@@ -36,5 +37,25 @@ class IterativeSolution:
         return result
 
 
-Solution = IterativeSolution
+class BackTrackSolution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+
+        def back_track(curr):
+            if len(curr) == len(nums):
+                result.append(curr[:])
+                return
+            for num, remain in counter.items():
+                if remain == 1:
+                    curr.append(num)
+                    counter[num] -= 1
+                    back_track(curr)
+                    curr.pop()
+                    counter[num] += 1
+        counter = Counter(nums)
+        result = []
+        back_track([])
+        return result
+
+
+Solution = BackTrackSolution
 # @lc code=end
