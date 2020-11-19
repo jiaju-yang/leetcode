@@ -39,18 +39,34 @@ class IterativeSolution:
 
 class BackTrackSolution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        def _back_track(start, curr, target_length):
+        def back_track(start, curr, target_length):
             if len(curr) == target_length:
                 result.append(curr[:])
                 return
             curr.append(nums[start])
-            _back_track(start + 1, curr, target_length)
+            back_track(start + 1, curr, target_length)
             curr.pop()
-            _back_track(start + 1, curr, target_length - 1)
+            back_track(start + 1, curr, target_length - 1)
         result = []
-        _back_track(0, [], len(nums))
+        back_track(0, [], len(nums))
         return result
 
 
-Solution = BackTrackSolution
+class RealBackTrackSolution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        def back_track(curr, start, target_length):
+            if len(curr) == target_length:
+                result.append(curr[:])
+                return
+            for j in range(start, len(nums)):
+                curr.append(nums[j])
+                back_track(curr, j + 1, target_length)
+                curr.pop()
+        result = []
+        for i in range(len(nums)+1):
+            back_track([], 0, i)
+        return result
+
+
+Solution = RealBackTrackSolution
 # @lc code=end

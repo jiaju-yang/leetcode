@@ -4,7 +4,9 @@ solve = Solution().subsets
 
 
 def test_default():
-    assert {frozenset(i) for i in solve([1, 2, 3])} == {
+    result = solve([1, 2, 3])
+    assert len(result) == 8
+    assert {frozenset(i) for i in result} == {
         frozenset(),
         frozenset([1]),
         frozenset([2]),
@@ -16,6 +18,8 @@ def test_default():
 
 
 def test_corner_cases():
-    assert {frozenset(i) for i in solve([1])} == {
+    result = solve([1])
+    assert len(result) == 2
+    assert {frozenset(i) for i in result} == {
         frozenset(),
         frozenset([1])}
