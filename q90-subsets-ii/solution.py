@@ -11,11 +11,11 @@ class IterativeSolution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
         result = [[]]
-        precious_size = len(result)
+        previous_size = len(result)
         for i in range(len(nums)):
             if i == 0 or nums[i] != nums[i-1]:
-                precious_size = len(result)
-            for j in range(len(result) - precious_size, len(result)):
+                previous_size = len(result)
+            for j in range(len(result) - previous_size, len(result)):
                 result.append(result[j] + [nums[i]])
         return result
 
