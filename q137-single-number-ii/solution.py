@@ -12,8 +12,7 @@ class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         a = b = 0
         for num in nums:
-            temp = a
-            a = (a & ~b & ~num) | (~a & b & num)
-            b = (b & ~temp & ~num) | (~b & ~temp & num)
+            b = b ^ num & ~a
+            a = a ^ num & ~b
         return b
 # @lc code=end
