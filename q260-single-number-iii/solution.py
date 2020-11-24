@@ -10,19 +10,13 @@ from typing import List
 
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
-        group = 0
+        bit_mask = 0
         for num in nums:
-            group ^= num
-        i = 0
-        while group % 2 == 0:
-            i += 1
-            group >>= 1
-        pivot = 1 << i
-        a, b = 0, 0
+            bit_mask ^= num
+        diff = bit_mask & -bit_mask
+        a = 0
         for num in nums:
-            if num & pivot:
+            if num & diff:
                 a ^= num
-            else:
-                b ^= num
-        return [a, b]
+        return [a, bit_mask ^ a]
 # @lc code=end
