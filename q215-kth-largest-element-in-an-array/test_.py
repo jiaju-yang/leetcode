@@ -10,3 +10,4 @@ def test_default():
 
 def test_corner_cases():
     assert solve([1], 1) == 1
+    assert solve([-1, -1], 2) == -1
