@@ -10,4 +10,7 @@ def test_default():
 
 def test_corner_cases():
     assert solve([1], 1) == 1
+
+def test_duplicate():
     assert solve([-1, -1], 2) == -1
+    assert solve([-1, -1, -1, -1], 2) == -1

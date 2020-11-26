@@ -38,5 +38,32 @@ class DivideAndConquerSolution:
         return max(partitioned)
 
 
-Solution = DivideAndConquerSolution
+class InplaceDivideAndConquerSolution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        left, right = 0, len(nums) - 1
+        return self._find(nums, left, right, k)
+
+    def _find(self, nums, left, right, k):
+        pivot_index = self._partition(nums, left, right)
+        if pivot_index == k - 1:
+            return nums[pivot_index]
+        elif pivot_index < k - 1:
+            return self._find(nums, pivot_index + 1, right, k)
+        else:
+            return self._find(nums, left, pivot_index - 1, k)
+
+    def _partition(self, nums, p, r):
+        pivot_index = choice(range(r - p + 1)) + p
+        pivot = nums[pivot_index]
+        nums[pivot_index], nums[r] = nums[r], nums[pivot_index]
+        i = p
+        for j in range(p, r):
+            if nums[j] >= pivot:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+        nums[i], nums[r] = nums[r], nums[i]
+        return i
+
+
+Solution = InplaceDivideAndConquerSolution
 # @lc code=end
