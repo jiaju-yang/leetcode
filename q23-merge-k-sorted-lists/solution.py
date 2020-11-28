@@ -26,21 +26,16 @@ class ListNode:
 
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        heap = [(node.val, i) for i, node in enumerate(lists)
+        heap = [(node.val, i, node) for i, node in enumerate(lists)
                 if node is not None and node.val is not None]
         heapify(heap)
-        head = curr = None
+        dummy = curr = ListNode(None)
         while heap:
-            val, i = heappop(heap)
-            node = lists[i]
-            if not head:
-                head = curr = ListNode(val)
-            else:
-                curr.next = ListNode(val)
-                curr = curr.next
+            val, i, node = heappop(heap)
+            curr.next = ListNode(val)
+            curr = curr.next
             if node.next:
-                heappush(heap, (node.next.val, i))
-            lists[i] = lists[i].next
-        return head
+                heappush(heap, (node.next.val, i, node.next))
+        return dummy.next
 
 # @lc code=end
