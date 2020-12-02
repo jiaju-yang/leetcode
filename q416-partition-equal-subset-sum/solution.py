@@ -6,6 +6,7 @@
 
 # @lc code=start
 from typing import List
+from collections import Counter
 
 
 class BruteForceSolution:
@@ -28,5 +29,26 @@ class BruteForceSolution:
         return False
 
 
-Solution = BruteForceSolution
+class BackTrackSolution:
+    def canPartition(self, nums: List[int]) -> bool:
+        total_sum = sum(nums)
+        counter = Counter(nums)
+
+        def driver(current_sum):
+            if current_sum == total_sum - current_sum:
+                return True
+            if current_sum > total_sum - current_sum:
+                return False
+            for num, remain in counter.items():
+                if remain > 0:
+                    counter[num] -= 1
+                    equal = driver(current_sum+num)
+                    if equal:
+                        return equal
+                    counter[num] += 1
+            return False
+        return driver(0)
+
+
+Solution = BackTrackSolution
 # @lc code=end
