@@ -50,5 +50,22 @@ class BackTrackSolution:
         return driver(0)
 
 
-Solution = BackTrackSolution
+class DPSolution:
+    def canPartition(self, nums: List[int]) -> bool:
+        total_sum = sum(nums)
+        if total_sum % 2 == 1:
+            return False
+        target = total_sum >> 1
+        dp = [0] * (target + 1)
+        dp[0] = 1
+        for num in nums:
+            for i in range(target, -1, -1):
+                if dp[i] == 1 and num + i <= target:
+                    dp[i+num] = 1
+                if dp[target] == 1:
+                    return True
+        return False
+
+
+Solution = DPSolution
 # @lc code=end
