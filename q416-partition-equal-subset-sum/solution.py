@@ -85,5 +85,23 @@ class DPSolution:
         return False
 
 
-Solution = ImprovedBruteForceSolution
+class AnotherDPSolution:
+    def canPartition(self, nums: List[int]) -> bool:
+        total_sum = sum(nums)
+        if total_sum % 2 == 1:
+            return False
+        target = total_sum >> 1
+        dp = [[False] * (target + 1) for _ in range(len(nums) + 1)]
+        dp[0][0] = True
+        for i in range(len(nums)):
+            for sub_sum in range(target + 1):
+                j = sub_sum - nums[i]
+                if j >= 0 and dp[i][j]:
+                    dp[i+1][sub_sum] = True
+                if dp[i][sub_sum]:
+                    dp[i+1][sub_sum] = True
+        return dp[len(nums)][target]
+
+
+Solution = AnotherDPSolution
 # @lc code=end
