@@ -74,14 +74,14 @@ class DPSolution:
         if total_sum % 2 == 1:
             return False
         target = total_sum >> 1
-        dp = [0] * (target + 1)
-        dp[0] = 1
+        dp = [False] * (target + 1)
+        dp[0] = True
         for num in nums:
-            for i in range(target, -1, -1):
-                if dp[i] == 1 and num + i <= target:
-                    dp[i+num] = 1
-                if dp[target] == 1:
-                    return True
+            for i in range(target - num, -1, -1):
+                if dp[i]:
+                    dp[i+num] = True
+            if dp[target]:
+                return True
         return False
 
 
@@ -103,5 +103,5 @@ class AnotherDPSolution:
         return dp[len(nums)][target]
 
 
-Solution = AnotherDPSolution
+Solution = DPSolution
 # @lc code=end
