@@ -29,6 +29,24 @@ class BruteForceSolution:
         return False
 
 
+class ImprovedBruteForceSolution:
+    def canPartition(self, nums: List[int]) -> bool:
+        def is_sum(sub_sum, curr):
+            if sub_sum == 0:
+                return True
+            if curr < 0 or sub_sum < 0:
+                return False
+            included = is_sum(sub_sum - nums[curr], curr - 1)
+            not_included = is_sum(sub_sum, curr - 1)
+            return included or not_included
+
+        total_sum = sum(nums)
+        if total_sum % 2 == 1:
+            return False
+        target = total_sum >> 1
+        return is_sum(target, len(nums) - 1)
+
+
 class BackTrackSolution:
     def canPartition(self, nums: List[int]) -> bool:
         total_sum = sum(nums)
@@ -67,5 +85,5 @@ class DPSolution:
         return False
 
 
-Solution = DPSolution
+Solution = ImprovedBruteForceSolution
 # @lc code=end
