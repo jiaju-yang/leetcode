@@ -55,5 +55,24 @@ class DPSolution:
                 counter['1'] if '1' in counter else 0)
 
 
-Solution = DPSolution
+class AnotherDPSolution:
+    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
+        dp = [[None] * (n+1) for i in range(m+1)]
+        dp[0][0] = 0
+        for curr_str in strs:
+            curr_m, curr_n = self.count_01s(curr_str)
+            for i in range(m, -1, -1):
+                for j in range(n, -1, -1):
+                    if i-curr_m >= 0 and j-curr_n >= 0 and dp[i-curr_m][j-curr_n] is not None:
+                        dp[i][j] = max(
+                            dp[i-curr_m][j-curr_n] + 1, dp[i][j] or 0)
+        return max(dp[i][j] or 0 for i in range(m+1) for j in range(n+1))
+
+    def count_01s(self, seq):
+        counter = Counter(seq)
+        return (counter['0'] if '0' in counter else 0,
+                counter['1'] if '1' in counter else 0)
+
+
+Solution = AnotherDPSolution
 # @lc code=end
