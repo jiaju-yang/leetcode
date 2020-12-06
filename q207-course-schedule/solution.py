@@ -6,43 +6,42 @@
 
 # @lc code=start
 from typing import List
-from collections import defaultdict
+
+
+class Node:
+    def __init__(self, name, color='white', adjs=None):
+        if not adjs:
+            adjs = []
+        self.name = name
+        self.color = color
+        self.adjs = adjs
 
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         def dfs_visit(course):
-            nonlocal time
-            time += 1
-            prop = courses[course]
-            prop['d'] = time
-            prop['color'] = 'gray'
-            for adj_course in prop['adjs']:
-                if courses[adj_course]['color'] == 'white':
+            course.color = 'gray'
+            for adj_course_name in course.adjs:
+                adj_course = courses[adj_course_name]
+                if adj_course.color == 'white':
                     result = dfs_visit(adj_course)
                     if not result:
                         return False
-                elif courses[adj_course]['color'] == 'gray':
+                elif adj_course.color == 'gray':
                     return False
-            prop['color'] = 'black'
-            time += 1
-            prop['f'] = time
+            course.color = 'black'
             return True
 
-
-        courses = defaultdict(lambda: {
-            'color': 'white',
-            'pi': None,
-            'd': None,
-            'f': None,
-            'adjs': []
-        })
+        courses = {}
         for edge in prerequisites:
-            courses[edge[0]]['adjs'].append(edge[1])
-            courses[edge[1]]
-        time = 0
-        for course, prop in courses.items():
-            if prop['color'] == 'white':
+            try:
+                courses[edge[0]].adjs.append(edge[1])
+            except KeyError:
+                courses[edge[0]] = Node(edge[0], adjs=[edge[1]])
+            if edge[1] not in courses:
+                courses[edge[1]] = Node(edge[1])
+        for course in courses.values():
+            if course.color == 'white':
                 result = dfs_visit(course)
                 if not result:
                     return False
