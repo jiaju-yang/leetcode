@@ -5,7 +5,8 @@ solve = Solution().findOrder
 
 def test_default():
     assert solve(2, [[1, 0]]) == [0, 1]
-    assert solve(4, [[1, 0], [2, 0], [3, 1], [3, 2]]) == [0, 1, 2, 3]
+    result = solve(4, [[1, 0], [2, 0], [3, 1], [3, 2]])
+    assert result == [0, 1, 2, 3] or result == [0, 2, 1, 3]
 
 
 def test_corner_cases():
