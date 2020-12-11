@@ -9,7 +9,7 @@ from typing import List
 from collections import Counter, defaultdict
 
 
-class Solution:
+class BruteForceSolution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         if not s or not words:
             return []
@@ -33,4 +33,49 @@ class Solution:
                     else:
                         break
         return result
+
+
+class DPSolution:
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        if not words or not s:
+            return []
+        counter = Counter(words)
+        target_match = len(words)
+        result = []
+        word_length = len(words[0])
+        for i in range(word_length):
+            positions = defaultdict(list)
+            matched = 0
+            remain = dict(counter)
+            start = i
+            for j in range(i, len(s), word_length):
+                curr_word = s[j:j+word_length]
+                if curr_word in counter:
+                    positions[curr_word].append(j)
+                    matched += 1
+                    remain[curr_word] -= 1
+                    if remain[curr_word] < 0:
+                        new_start = positions[curr_word][0] + word_length
+                        while start != new_start:
+                            word = s[start:start+word_length]
+                            positions[word].pop(0)
+                            matched -= 1
+                            remain[word] += 1
+                            start += word_length
+                    if matched == target_match:
+                        result.append(start)
+                        first_word = s[start:start+word_length]
+                        remain[first_word] += 1
+                        start += word_length
+                        matched -= 1
+                        positions[first_word].pop(0)
+                else:
+                    positions = defaultdict(list)
+                    matched = 0
+                    remain = dict(counter)
+                    start = j + word_length
+        return result
+
+
+Solution = DPSolution
 # @lc code=end
