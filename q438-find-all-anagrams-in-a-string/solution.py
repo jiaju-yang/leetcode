@@ -17,21 +17,20 @@ class Solution:
         start = 0
         counter = Counter(p)
         curr_counter = dict(counter)
-        for end in range(len(s)):
+        for end, char in enumerate(s):
             if end - start + 1 > target_match:
                 curr_counter[s[start]] += 1
                 matched -= 1
                 start += 1
-            if s[end] in counter:
-                curr_counter[s[end]] -= 1
-                if curr_counter[s[end]] < 0:
-                    while s[start] != s[end]:
+            if char in counter:
+                curr_counter[char] -= 1
+                if curr_counter[char] < 0:
+                    while True:
                         curr_counter[s[start]] += 1
                         matched -= 1
                         start += 1
-                    curr_counter[s[start]] += 1
-                    matched -= 1
-                    start += 1
+                        if s[start-1] == char:
+                            break
                 matched += 1
                 if matched == target_match:
                     result.append(start)
