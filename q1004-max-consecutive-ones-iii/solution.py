@@ -11,14 +11,12 @@ from typing import List
 class Solution:
     def longestOnes(self, A: List[int], K: int) -> int:
         start = 0
-        max_length = 0
         remain = K
         for end, value in enumerate(A):
             remain -= (1 - value)
-            while remain < 0:
+            if remain < 0:
                 remain += (1 - A[start])
                 start += 1
-            max_length = max(max_length, end - start + 1)
-        return max_length
+        return end - start + 1
 
 # @lc code=end
