@@ -12,6 +12,10 @@ def test_default():
     solve(nums)
     assert nums == [0, 1, 2]
 
+    nums = [1, 2, 0]
+    solve(nums)
+    assert nums == [0, 1, 2]
+
 
 def test_corner_cases():
     nums = [0]
