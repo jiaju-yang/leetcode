@@ -12,7 +12,7 @@ class ListNode:
         self.next = None
 
 
-class Solution:
+class SetSolution:
     def detectCycle(self, head: ListNode) -> ListNode:
         detected = set()
         cur = head
@@ -23,4 +23,24 @@ class Solution:
             cur = cur.next
         return None
 
+
+class TwoPointersSolution:
+    def detectCycle(self, head: ListNode) -> ListNode:
+        slow, fast = head, head
+        while True:
+            try:
+                slow = slow.next
+                fast = fast.next.next
+                if slow is fast:
+                    break
+            except AttributeError:
+                return None
+        first, second = head, fast
+        while first is not second:
+            first = first.next
+            second = second.next
+        return first
+
+
+Solution = TwoPointersSolution
 # @lc code=end
