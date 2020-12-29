@@ -5,7 +5,7 @@
 #
 
 # @lc code=start
-class Solution:
+class SetSolution:
     def isHappy(self, n: int) -> bool:
         seen = set()
 
@@ -21,4 +21,20 @@ class Solution:
         return happy(n)
 
 
+class TwoPointersSolution:
+    def isHappy(self, n: int) -> bool:
+        slow, fast = n, n
+        while True:
+            slow = self.next(slow)
+            fast = self.next(self.next(fast))
+            if fast == 1:
+                return True
+            if slow == fast:
+                return False
+
+    def next(self, n):
+        return sum(int(d)*int(d) for d in str(n))
+
+
+Solution = TwoPointersSolution
 # @lc code=end
