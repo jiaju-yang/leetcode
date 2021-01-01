@@ -8,7 +8,7 @@
 from typing import List
 
 
-class Solution:
+class SwapSolution:
     def findDuplicates(self, nums: List[int]) -> List[int]:
         i = 0
         result = []
@@ -24,4 +24,17 @@ class Solution:
                 i += 1
         return result
 
+
+class HashSolution:
+    def findDuplicates(self, nums: List[int]) -> List[int]:
+        result = []
+        for num in nums:
+            if nums[abs(num)-1] < 0:
+                result.append(abs(num))
+            else:
+                nums[abs(num)-1] *= -1
+        return result
+
+
+Solution = HashSolution
 # @lc code=end
