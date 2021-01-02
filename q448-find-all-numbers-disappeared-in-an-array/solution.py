@@ -8,7 +8,7 @@
 from typing import List
 
 
-class Solution:
+class SwapSolution:
     def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
         i = 0
         while i < len(nums):
@@ -26,4 +26,13 @@ class Solution:
         return [i+1 for i, num in enumerate(nums) if num is None]
 
 
+class HashSolution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        for i, num in enumerate(nums):
+            if nums[abs(num)-1] > 0:
+                nums[abs(num)-1] *= -1
+        return [i+1 for i, num in enumerate(nums) if num > 0]
+
+
+Solution = HashSolution
 # @lc code=end
