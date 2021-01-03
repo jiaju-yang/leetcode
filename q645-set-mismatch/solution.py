@@ -46,5 +46,18 @@ class XorSolution:
                 return [xor2, xor1]
 
 
-Solution = XorSolution
+class CombinationSolution:
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+        duplicate = None
+        xor = 0
+        for i, num in enumerate(nums, 1):
+            if nums[abs(num)-1] > 0:
+                nums[abs(num)-1] *= -1
+            else:
+                duplicate = abs(num)
+            xor ^= abs(num) ^ i
+        return [duplicate, xor ^ duplicate]
+
+
+Solution = CombinationSolution
 # @lc code=end
