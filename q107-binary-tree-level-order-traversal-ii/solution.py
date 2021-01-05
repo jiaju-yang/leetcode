@@ -5,7 +5,6 @@
 #
 
 # @lc code=start
-# Definition for a binary tree node.
 from typing import List
 from collections import deque
 
@@ -17,7 +16,7 @@ class TreeNode:
         self.right = right
 
 
-class Solution:
+class BFSSolution:
     def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
@@ -37,4 +36,24 @@ class Solution:
             except IndexError:
                 result.append([cur.val])
         return result[::-1]
+
+
+class DFSSolution:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        result = []
+
+        def dfs_visit(node, level):
+            if not node:
+                return
+            try:
+                result[level].append(node.val)
+            except IndexError:
+                result.append([node.val])
+            dfs_visit(node.left, level+1)
+            dfs_visit(node.right, level+1)
+        dfs_visit(root, 0)
+        return result[::-1]
+
+
+Solution = DFSSolution
 # @lc code=end
