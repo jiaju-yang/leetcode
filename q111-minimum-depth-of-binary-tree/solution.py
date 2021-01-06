@@ -16,7 +16,7 @@ class TreeNode:
         self.right = right
 
 
-class Solution:
+class BFSSolution:
     def minDepth(self, root: TreeNode) -> int:
         min_depth = 0
         if not root:
@@ -34,4 +34,21 @@ class Solution:
                     q.append(node.right)
 
 
+class DFSSolution:
+    def minDepth(self, root: TreeNode) -> int:
+        min_depth = float('inf')
+
+        def dfs_visit(node, depth):
+            if not node:
+                return
+            if not node.left and not node.right:
+                nonlocal min_depth
+                min_depth = min(min_depth, depth+1)
+            dfs_visit(node.left, depth+1)
+            dfs_visit(node.right, depth+1)
+        dfs_visit(root, 0)
+        return 0 if min_depth == float('inf') else min_depth
+
+
+Solution = DFSSolution
 # @lc code=end
