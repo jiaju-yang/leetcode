@@ -17,7 +17,7 @@ class TreeNode:
         self.right = right
 
 
-class Solution:
+class BFSSolution:
     def averageOfLevels(self, root: TreeNode) -> List[float]:
         result = []
         if not root:
@@ -36,4 +36,22 @@ class Solution:
             result.append(level_sum/count)
         return result
 
+
+class DFSSolution:
+    def averageOfLevels(self, root: TreeNode) -> List[float]:
+        def dfs_visit(node, level):
+            if not node:
+                return
+            try:
+                result[level].append(node.val)
+            except IndexError:
+                result.append([node.val])
+            dfs_visit(node.left, level+1)
+            dfs_visit(node.right, level+1)
+        result = []
+        dfs_visit(root, 0)
+        return [sum(level)/len(level) for level in result]
+
+
+Solution = DFSSolution
 # @lc code=end
