@@ -25,7 +25,7 @@ FRESH = 1
 ROTTEN = 2
 
 
-class Solution:
+class BFSSolution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         graph = {}
         for i in range(len(grid)):
@@ -62,4 +62,34 @@ class Solution:
             unresolved_rottened_pos = fresh_adjs
         return minute if rottened_count == len(graph) else -1
 
+
+class FasterBFSSolution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        fresh_count = 0
+        rottened = []
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                state = grid[i][j]
+                if state == FRESH:
+                    fresh_count += 1
+                elif state == ROTTEN:
+                    rottened.append((i, j))
+        minute = 0
+        while rottened and fresh_count > 0:
+            minute += 1
+            fresh = []
+            for i, j in rottened:
+                for direction in directions:
+                    adj_i, adj_j = i+direction[0], j+direction[1]
+                    if len(grid) > adj_i >= 0 and len(grid[i]) > adj_j >= 0:
+                        adj_state = grid[adj_i][adj_j]
+                        if adj_state == FRESH:
+                            fresh_count -= 1
+                            grid[adj_i][adj_j] = ROTTEN
+                            fresh.append((adj_i, adj_j))
+            rottened = fresh
+        return minute if fresh_count == 0 else -1
+
+
+Solution = FasterBFSSolution
 # @lc code=end
