@@ -6,6 +6,7 @@
 
 # @lc code=start
 from typing import List
+from collections import deque
 # Definition for a binary tree node.
 
 
@@ -16,7 +17,7 @@ class TreeNode:
         self.right = right
 
 
-class Solution:
+class DFSSolution:
     def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
         def dfs_visit(node, remain, path):
             if not node:
@@ -32,4 +33,25 @@ class Solution:
         dfs_visit(root, sum, [])
         return result
 
+
+class BFSSolution:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        result = []
+        if not root:
+            return result
+        q = deque([(root, sum, [])])
+        while q:
+            node, remain, path = q.pop()
+            curr_remain = remain-node.val
+            curr_path = path+[node.val]
+            if not node.left and not node.right and curr_remain == 0:
+                result.append(curr_path[:])
+            if node.left:
+                q.appendleft((node.left, curr_remain, curr_path))
+            if node.right:
+                q.appendleft((node.right, curr_remain, curr_path))
+        return result
+
+
+Solution = BFSSolution
 # @lc code=end
