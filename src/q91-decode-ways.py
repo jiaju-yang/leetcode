@@ -7,14 +7,13 @@
 # @lc code=start
 class Solution:
     def numDecodings(self, s: str) -> int:
-        dp = [0] * (len(s) + 1)
-        dp[0] = 1
-        for i in range(len(s)):
-            if self.is_valid(s[i]):
-                dp[i+1] += dp[i]
-            if i > 0 and self.is_valid(s[i-1] + s[i]):
-                dp[i+1] += dp[i-1]
-        return dp[-1]
+        it = iter(s)
+        p_char = next(it)
+        previous, current = 1, (1 if self.is_valid(p_char) else 0)
+        for c in it:
+            previous, current, p_char = current, (
+                current if self.is_valid(c) else 0) + (previous if self.is_valid(p_char + c) else 0), c
+        return current
 
     def is_valid(self, t):
         if t.startswith('0'):
