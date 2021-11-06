@@ -4,10 +4,10 @@
 # [207] Course Schedule
 #
 from typing import List
-# @lc code=start
+from collections import deque
 
 
-class Solution:
+class DFSSolution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         states = [0] * numCourses
         adjs = [[] for _ in range(numCourses)]
@@ -33,11 +33,33 @@ class Solution:
                     return False
         return True
 
+# @lc code=start
+
+
+class BFSSolution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        adjs = [[] for _ in range(numCourses)]
+        indegrees = [0] * numCourses
+        for neighbor, node in prerequisites:
+            adjs[node].append(neighbor)
+            indegrees[neighbor] += 1
+
+        q = deque(node for node in range(numCourses) if indegrees[node] == 0)
+        visited = 0
+        while q:
+            node = q.popleft()
+            visited += 1
+            for neighbor in adjs[node]:
+                indegrees[neighbor] -= 1
+                if indegrees[neighbor] == 0:
+                    q.append(neighbor)
+        return visited == numCourses
+
 
 # @lc code=end
 
 
-solve = Solution().canFinish
+solve = BFSSolution().canFinish
 
 
 def test_default():
