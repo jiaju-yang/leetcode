@@ -11,20 +11,19 @@ class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         row = len(grid)
         column = len(grid[0])
-        states = [[False] * column for _ in range(row)]
         adjacents = ((0, 1), (1, 0), (-1, 0), (0, -1))
 
         def dfs(i, j):
-            states[i][j] = True
+            grid[i][j] = 'D'
             for i_off, j_off in adjacents:
                 neighbor_i, neighbor_j = i + i_off, j + j_off
-                if 0 <= neighbor_i < row and 0 <= neighbor_j < column and grid[neighbor_i][neighbor_j] == '1' and not states[neighbor_i][neighbor_j]:
+                if 0 <= neighbor_i < row and 0 <= neighbor_j < column and grid[neighbor_i][neighbor_j] == '1':
                     dfs(neighbor_i, neighbor_j)
 
         num_of_islands = 0
         for i in range(row):
             for j in range(column):
-                if not states[i][j] and grid[i][j] == '1':
+                if grid[i][j] == '1':
                     num_of_islands += 1
                     dfs(i, j)
 
