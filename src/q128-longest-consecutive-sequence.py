@@ -5,10 +5,8 @@
 #
 from typing import List
 
-# @lc code=start
 
-
-class Solution:
+class DFSSolution:
     def longestConsecutive(self, nums: List[int]) -> int:
         states = {num: False for num in nums}
         max_length = 0
@@ -28,6 +26,23 @@ class Solution:
     def neighbors(self, num):
         yield num + 1
         yield num - 1
+
+# @lc code=start
+
+
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        s = set(nums)
+        longest = 0
+        for num in nums:
+            if num - 1 not in s:
+                next = num + 1
+                while next in s:
+                    next += 1
+                longest = max(longest, next - num)
+        return longest
+
+
 # @lc code=end
 
 
