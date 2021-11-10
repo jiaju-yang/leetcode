@@ -5,7 +5,7 @@
 #
 from typing import List
 from collections import Counter
-from heapq import heapify, heappushpop
+from heapq import nlargest
 
 # @lc code=start
 
@@ -13,15 +13,7 @@ from heapq import heapify, heappushpop
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         counter = Counter(nums)
-        it = iter(counter.items())
-        heap = []
-        for _ in range(k):
-            k, v = next(it)
-            heap.append((v, k))
-        heapify(heap)
-        for k, v in it:
-            heappushpop(heap, (v, k))
-        return [k for _, k in heap]
+        return nlargest(k, counter.keys(), key=counter.get)
 
 # @lc code=end
 
