@@ -3,7 +3,7 @@
 #
 # [295] Find Median from Data Stream
 #
-from heapq import heappush, heappushpop
+from heapq import heappop, heappush, heappushpop
 
 # @lc code=start
 
@@ -11,65 +11,21 @@ from heapq import heappush, heappushpop
 class MedianFinder:
 
     def __init__(self):
-        self.min_heap = Heap()
-        self.max_heap = Heap(False)
+        self.large = []
+        self.small = []
 
     def addNum(self, num: int) -> None:
-        if not self.max_heap:
-            self.max_heap.push(num)
-            return
-        if num >= self.max_heap[0]:
-            if len(self.max_heap) > len(self.min_heap):
-                self.min_heap.push(num)
-            else:
-                self.max_heap.push(self.min_heap.pushpop(num))
+        if len(self.large) == len(self.small):
+            heappush(self.small, -heappushpop(self.large, num))
         else:
-            if len(self.max_heap) > len(self.min_heap):
-                self.min_heap.push(self.max_heap.pushpop(num))
-            else:
-                self.max_heap.push(num)
+            heappush(self.large, -heappushpop(self.small, -num))
 
     def findMedian(self) -> float:
-        if len(self.max_heap) > len(self.min_heap):
-            return self.max_heap[0]
+        if len(self.small) > len(self.large):
+            return -self.small[0]
         else:
-            return (self.min_heap[0] + self.max_heap[0]) / 2
+            return (self.large[0] - self.small[0]) / 2
 
-
-class Heap:
-    def __init__(self, min=True):
-        self.min = min
-        self.container = []
-
-    def push(self, num):
-        if self.min:
-            heappush(self.container, num)
-        else:
-            heappush(self.container, -num)
-
-    def pushpop(self, num):
-        if self.min:
-            return heappushpop(self.container, num)
-        else:
-            return -heappushpop(self.container, -num)
-
-    def __len__(self):
-        return len(self.container)
-
-    def __getitem__(self, i):
-        if self.min:
-            return self.container[i]
-        else:
-            return -self.container[i]
-
-    def __nonzero__(self):
-        return bool(self.container)
-
-    def __repr__(self) -> str:
-        if self.min:
-            return repr(self.container)
-        else:
-            return repr([-e for e in self.container])
 
 # @lc code=end
 
