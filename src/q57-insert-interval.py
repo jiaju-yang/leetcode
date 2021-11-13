@@ -10,30 +10,16 @@ from typing import List
 
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        result = []
-        i = 0
-        while i < len(intervals):
-            if self.is_overlapping(intervals[i], newInterval) or newInterval[0] < intervals[i][0]:
-                break
-            result.append(list(intervals[i]))
-            i += 1
-        while i < len(intervals):
-            if self.is_overlapping(intervals[i], newInterval):
-                newInterval = self.merge_intervals(intervals[i], newInterval)
+        left, right = [], []
+        for interval in intervals:
+            if interval[1] < newInterval[0]:
+                left.append(interval)
+            elif interval[0] > newInterval[1]:
+                right.append(interval)
             else:
-                break
-            i += 1
-        result.append(newInterval)
-        while i < len(intervals):
-            result.append(list(intervals[i]))
-            i += 1
-        return result
-
-    def is_overlapping(self, interval_a, interval_b):
-        return interval_a[0] <= interval_b[1] and interval_a[1] >= interval_b[0]
-
-    def merge_intervals(self, interval_a, interval_b):
-        return [min(interval_a[0], interval_b[0]), max(interval_a[1], interval_b[1])]
+                newInterval = [min(interval[0], newInterval[0]),
+                               max(interval[1], newInterval[1])]
+        return left + [newInterval] + right
 # @lc code=end
 
 
