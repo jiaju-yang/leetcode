@@ -11,16 +11,13 @@ from operator import itemgetter
 
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        if not intervals:
-            return []
-        intervals.sort(key=itemgetter(0))
-        it = iter(intervals)
-        result = [next(it)]
-        for interval in it:
-            if interval[0] > result[-1][1]:
+        result = []
+        for interval in sorted(intervals, key=itemgetter(0)):
+            if result and interval[0] <= result[-1][1]:
+                if result[-1][1] <= interval[1]:
+                    result[-1][1] = interval[1]
+            else:
                 result.append(interval)
-            elif result[-1][1] < interval[1]:
-                result[-1][1] = interval[1]
         return result
 
 
@@ -40,3 +37,4 @@ def test_corner_cases():
     assert solve([[1, 2]]) == [[1, 2]]
     assert solve([[1, 2], [3, 4]]) == [[1, 2], [3, 4]]
     assert solve([[1, 2], [2, 4]]) == [[1, 4]]
+    assert solve([[1, 4], [1, 4]]) == [[1, 4]]
