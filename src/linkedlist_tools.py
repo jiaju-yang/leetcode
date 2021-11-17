@@ -16,9 +16,10 @@ class ListNode:
 
 
 def construct_LinkedList(values: List, pos=None):
-    """Construct a linked list from list
+    """
+    Construct a linked list from list
 
-    pos: if there is a cycle in the linked list, pass the index of the node that the last node should point to.
+    :param pos: if there is a cycle in the linked list, pass the index of the node that the last node should point to.
     """
     previous = head = pos_node = None
     for i in range(len(values)):
