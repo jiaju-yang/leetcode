@@ -15,8 +15,12 @@ class ListNode:
         return f'Node({self.val})'
 
 
-def construct_LinkedList(values: List):
-    previous = head = None
+def construct_LinkedList(values: List, pos=None):
+    """Construct a linked list from list
+
+    pos: if there is a cycle in the linked list, pass the index of the node that the last node should point to.
+    """
+    previous = head = pos_node = None
     for i in range(len(values)):
         current = ListNode(values[i])
         if not head:
@@ -24,6 +28,10 @@ def construct_LinkedList(values: List):
         if previous:
             previous.next = current
         previous = current
+        if i == pos:
+            pos_node = current
+        if i == len(values) - 1:
+            current.next = pos_node
     return head
 
 
