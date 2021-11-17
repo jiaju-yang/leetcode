@@ -11,11 +11,12 @@ from operator import itemgetter
 
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        result = []
+        max_count, end_at = 0, float('-inf')
         for interval in sorted(intervals, key=itemgetter(1)):
-            if not result or result[-1][1] <= interval[0]:
-                result.append(interval)
-        return len(intervals) - len(result)
+            if end_at <= interval[0]:
+                max_count += 1
+                end_at = interval[1]
+        return len(intervals) - max_count
 
 
 # @lc code=end
