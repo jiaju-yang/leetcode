@@ -15,7 +15,7 @@ class ListNode:
         return f'Node({self.val})'
 
 
-def construct_LinkedList(values: List, pos=None):
+def construct_linkedlist(values: List, pos=None):
     """
     Construct a linked list from list
 
@@ -39,5 +39,5 @@ def construct_LinkedList(values: List, pos=None):
 def construct_multi_list(values: List[List]) -> List[ListNode]:
     result = []
     for value in values:
-        result.append(construct_LinkedList(value))
+        result.append(construct_linkedlist(value))
     return result

@@ -27,10 +27,10 @@ solve = Solution().removeNthFromEnd
 
 
 def test_default():
-    assert solve(construct_LinkedList(
-        [1, 2, 3, 4, 5]), 2) == construct_LinkedList([1, 2, 3, 5])
+    assert solve(construct_linkedlist(
+        [1, 2, 3, 4, 5]), 2) == construct_linkedlist([1, 2, 3, 5])
 
 
 def test_corner_cases():
-    assert solve(construct_LinkedList([1]), 1) == construct_LinkedList([])
-    assert solve(construct_LinkedList([1, 2]), 1) == construct_LinkedList([1])
+    assert solve(construct_linkedlist([1]), 1) == construct_linkedlist([])
+    assert solve(construct_linkedlist([1, 2]), 1) == construct_linkedlist([1])

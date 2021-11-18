@@ -33,7 +33,7 @@ solve = Solution().mergeKLists
 
 def test_default():
     assert solve(construct_multi_list([[1, 4, 5], [1, 3, 4], [
-                 2, 6]])) == construct_LinkedList([1, 1, 2, 3, 4, 4, 5, 6])
+                 2, 6]])) == construct_linkedlist([1, 1, 2, 3, 4, 4, 5, 6])
 
 
 def test_corners():

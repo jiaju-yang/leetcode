@@ -30,14 +30,14 @@ solve = Solution().mergeTwoLists
 
 
 def test_default():
-    assert solve(construct_LinkedList([1, 2, 4]), construct_LinkedList(
-        [1, 3, 4])) == construct_LinkedList([1, 1, 2, 3, 4, 4])
+    assert solve(construct_linkedlist([1, 2, 4]), construct_linkedlist(
+        [1, 3, 4])) == construct_linkedlist([1, 1, 2, 3, 4, 4])
 
 
 def test_corner_cases():
-    assert solve(construct_LinkedList([]), construct_LinkedList(
-        [])) == construct_LinkedList([])
-    assert solve(construct_LinkedList([]), construct_LinkedList([0])
-                 ) == construct_LinkedList([0])
-    assert solve(construct_LinkedList([1]), construct_LinkedList([0])
-                 ) == construct_LinkedList([0, 1])
+    assert solve(construct_linkedlist([]), construct_linkedlist(
+        [])) == construct_linkedlist([])
+    assert solve(construct_linkedlist([]), construct_linkedlist([0])
+                 ) == construct_linkedlist([0])
+    assert solve(construct_linkedlist([1]), construct_linkedlist([0])
+                 ) == construct_linkedlist([0, 1])

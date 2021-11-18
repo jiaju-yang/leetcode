@@ -27,9 +27,9 @@ solve = Solution().hasCycle
 
 
 def test_default():
-    assert solve(construct_LinkedList([3, 2, 0, -4], 1))
+    assert solve(construct_linkedlist([3, 2, 0, -4], 1))
 
 
 def test_corner_cases():
-    assert solve(construct_LinkedList([1, 2], 0))
-    assert not solve(construct_LinkedList([1]))
+    assert solve(construct_linkedlist([1, 2], 0))
+    assert not solve(construct_linkedlist([1]))

@@ -22,11 +22,11 @@ solve = Solution().reverseList
 
 
 def test_default():
-    assert solve(construct_LinkedList(
-        [1, 2, 3, 4, 5])) == construct_LinkedList([5, 4, 3, 2, 1])
+    assert solve(construct_linkedlist(
+        [1, 2, 3, 4, 5])) == construct_linkedlist([5, 4, 3, 2, 1])
 
 
 def test_corner_cases():
     assert solve(None) == None
-    assert solve(construct_LinkedList([1])) == construct_LinkedList([1])
-    assert solve(construct_LinkedList([1, 2])) == construct_LinkedList([2, 1])
+    assert solve(construct_linkedlist([1])) == construct_linkedlist([1])
+    assert solve(construct_linkedlist([1, 2])) == construct_linkedlist([2, 1])
