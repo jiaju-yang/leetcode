@@ -6,7 +6,6 @@
 from typing import Counter, List
 
 
-# @lc code=start
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         for row in board:
@@ -26,6 +25,23 @@ class Solution:
     def are_digits_valid(self, *digits):
         counter = Counter(digits)
         return all(count <= 1 for key, count in counter.items() if key != '.')
+
+# @lc code=start
+
+
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        seen = set()
+        for i, row in enumerate(board):
+            for j, c in enumerate(row):
+                if c != '.':
+                    if (i, c) in seen or (c, j) in seen or (i//3, j//3, c) in seen:
+                        return False
+                    seen.add((i, c))
+                    seen.add((c, j))
+                    seen.add((i//3, j//3, c))
+        return True
+
 # @lc code=end
 
 
