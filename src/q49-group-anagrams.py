@@ -11,22 +11,10 @@ from collections import Counter, defaultdict
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        it = iter(strs)
-        result = [[next(it)]]
-        counters = defaultdict(list)
-        counters[len(result[0][0])].append((0, Counter(result[0][0])))
-        for s in it:
-            counter = Counter(s)
-            matched = False
-            for i, c in counters[len(s)]:
-                if counter == c:
-                    result[i].append(s)
-                    matched = True
-                    break
-            if not matched:
-                counters[len(s)].append((len(result), counter))
-                result.append([s])
-        return result
+        sorted_strs = defaultdict(list)
+        for s in strs:
+            sorted_strs[''.join(sorted(s))].append(s)
+        return [group for group in sorted_strs.values()]
 
 # @lc code=end
 
