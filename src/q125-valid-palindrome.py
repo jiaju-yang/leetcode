@@ -8,7 +8,13 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
         pure = [c.lower() for c in s if c.isalpha() or c.isnumeric()]
-        return pure == list(reversed(pure))
+        left, right = 0, len(pure) - 1
+        while left < right:
+            if pure[left] != pure[right]:
+                return False
+            left += 1
+            right -= 1
+        return True
 
 
 # @lc code=end
