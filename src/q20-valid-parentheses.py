@@ -7,20 +7,17 @@
 # @lc code=start
 class Solution:
     brackets = {
-        '}': '{',
-        ']': '[',
-        ')': '('
+        '{': '}',
+        '[': ']',
+        '(': ')'
     }
 
     def isValid(self, s: str) -> bool:
         stack = []
         for b in s:
-            if b in self.brackets.values():
-                stack.append(b)
-            elif b in self.brackets:
-                if not stack or stack.pop() != self.brackets[b]:
-                    return False
-            else:
+            if b in self.brackets:
+                stack.append(self.brackets[b])
+            elif not stack or stack.pop() != b:
                 return False
         return not stack
 
