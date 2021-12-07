@@ -5,7 +5,8 @@
 #
 
 # @lc code=start
-class Solution:
+
+class DPSolution:
     def longestPalindrome(self, s: str) -> str:
         dp = [[False] * len(s) for _ in range(len(s))]
         start, end = 0, 0
@@ -19,6 +20,25 @@ class Solution:
                         start, end = i, j
         return s[start:end+1]
 
+
+class TwoPointersSolution:
+    def longestPalindrome(self, s: str) -> str:
+        start, end = 0, 0
+        for i in range(len(s)):
+            start, end = max((start, end),
+                             self.extend(i, i, s),
+                             self.extend(i, i+1, s),
+                             key=lambda pair: pair[1] - pair[0])
+        return s[start: end + 1]
+
+    def extend(self, left, right, s):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return left+1, right-1
+
+
+Solution = TwoPointersSolution
 
 # @lc code=end
 solve = Solution().longestPalindrome
