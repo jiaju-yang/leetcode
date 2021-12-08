@@ -8,10 +8,7 @@ from collections import deque
 from .tree_tools import *
 
 
-# @lc code=start
-
-
-class Solution:
+class BFSSolution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
@@ -27,6 +24,18 @@ class Solution:
             if node.right:
                 q.appendleft((node.right, level + 1))
         return level
+
+# @lc code=start
+
+
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        return self.dfs(root)
+
+    def dfs(self, node):
+        if not node:
+            return 0
+        return max(self.dfs(node.left), self.dfs(node.right)) + 1
 
 
 # @lc code=end
