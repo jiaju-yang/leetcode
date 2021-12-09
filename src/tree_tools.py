@@ -4,6 +4,17 @@ class TreeNode:
         self.left = left
         self.right = right
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, self.__class__):
+            return False
+        return other and other.val == self.val and other.left == self.left and other.right == self.right
+
+    def __str__(self) -> str:
+        return f'TreeNode({self.val})'
+
+    def __repr__(self) -> str:
+        return str(self)
+
 
 def construct_tree(values):
     if not values:
