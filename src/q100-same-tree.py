@@ -14,13 +14,9 @@ class Solution:
         return self.dfs(p, q)
 
     def dfs(self, nodea, nodeb):
-        if nodea is None and nodeb is None:
-            return True
-        if nodea is not None and nodeb is not None:
-            if nodea.val != nodeb.val:
-                return False
-            return self.dfs(nodea.left, nodeb.left) and self.dfs(nodea.right, nodeb.right)
-        return False
+        if nodea and nodeb:
+            return nodea.val == nodeb.val and self.dfs(nodea.left, nodeb.left) and self.dfs(nodea.right, nodeb.right)
+        return nodea is nodeb
 # @lc code=end
 
 
