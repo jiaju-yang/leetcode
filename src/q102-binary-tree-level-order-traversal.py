@@ -5,11 +5,10 @@
 #
 from .tree_tools import *
 from typing import Optional, List
+from collections import deque
 
-# @lc code=start
 
-
-class Solution:
+class DFSSolution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         result = []
         self.dfs(root, 0, result)
@@ -23,6 +22,27 @@ class Solution:
         result[level].append(node.val)
         self.dfs(node.left, level+1, result)
         self.dfs(node.right, level+1, result)
+
+# @lc code=start
+
+
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        q = deque([root])
+        result = []
+        while q:
+            curr_result = []
+            for _ in range(len(q)):
+                node = q.pop()
+                curr_result.append(node.val)
+                if node.left:
+                    q.appendleft(node.left)
+                if node.right:
+                    q.appendleft(node.right)
+            result.append(curr_result)
+        return result
 
 # @lc code=end
 
