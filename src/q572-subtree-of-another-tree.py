@@ -6,10 +6,8 @@
 from .tree_tools import *
 from typing import Optional
 
-# @lc code=start
 
-
-class Solution:
+class TreeSolution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
         if not subRoot:
             return True
@@ -27,6 +25,15 @@ class Solution:
         if nodea and nodeb:
             return nodea.val == nodeb.val and self.is_same(nodea.left, nodeb.left) and self.is_same(nodea.right, nodeb.right)
         return nodea is nodeb
+# @lc code=start
+
+
+class Solution:
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        return self.serialize(subRoot) in self.serialize(root)
+
+    def serialize(self, node):
+        return f'({node.val},{self.serialize(node.left)},{self.serialize(node.right)})' if node else ''
 
 
 # @lc code=end
@@ -44,3 +51,4 @@ def test_corner_cases():
     assert solve(construct_tree([1]), construct_tree([1]))
     assert solve(construct_tree([2, 1]), construct_tree([1]))
     assert not solve(construct_tree([1, 2]), construct_tree([1]))
+    assert not solve(construct_tree([1, 2, 3]), construct_tree([1, 2]))
