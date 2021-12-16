@@ -11,20 +11,23 @@ from typing import Optional
 
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        return self.dfs(root, [], k)
+        remain = k
 
-    def dfs(self, node, q, k):
-        if not node:
-            return
-        count = self.dfs(node.left, q, k)
-        if count is not None:
-            return count
-        q.append(node.val)
-        if len(q) == k:
-            return node.val
-        count = self.dfs(node.right, q, k)
-        if count is not None:
-            return count
+        def dfs(node):
+            if not node:
+                return
+            val = dfs(node.left)
+            if val is not None:
+                return val
+            nonlocal remain
+            remain -= 1
+            if remain == 0:
+                return node.val
+            count = dfs(node.right)
+            if count is not None:
+                return count
+        return dfs(root)
+
 
 # @lc code=end
 
