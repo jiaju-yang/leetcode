@@ -6,10 +6,8 @@
 from .tree_tools import *
 from typing import Optional
 
-# @lc code=start
 
-
-class Solution:
+class InorderSolution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         remain = k
 
@@ -27,6 +25,23 @@ class Solution:
             if count is not None:
                 return count
         return dfs(root)
+
+# @lc code=start
+
+
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        stack = []
+        cur = root
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            k -= 1
+            cur = stack.pop()
+            if k == 0:
+                return cur.val
+            cur = cur.right
 
 
 # @lc code=end
