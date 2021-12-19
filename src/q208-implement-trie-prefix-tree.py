@@ -3,42 +3,53 @@
 #
 # [208] Implement Trie (Prefix Tree)
 #
+from collections import defaultdict
 
 # @lc code=start
+
+
+class TrieNode:
+    def __init__(self) -> None:
+        self.leaves = defaultdict(TrieNode)
+        self.exist = False
+
+    def __getitem__(self, key):
+        return self.leaves[key]
+
+    def __bool__(self):
+        return bool(self.leaves) or self.exist
+
+    def __str__(self) -> str:
+        return f'{self.exist}\n{str(self.leaves)}'
+
+    def __repr__(self) -> str:
+        return str(self)
 
 
 class Trie:
 
     def __init__(self):
-        self._data = [True, {}]
+        self._data = TrieNode()
 
     def insert(self, word: str) -> None:
-        _, cur = self._data
+        cur = self._data
         for c in word:
-            try:
-                pre = cur
-                _, cur = cur[c]
-            except KeyError:
-                pre = cur
-                cur[c] = [False, {}]
-                cur = cur[c][1]
-        pre[word[-1]][0] = True
+            cur = cur[c]
+        cur.exist = True
 
     def search(self, word: str) -> bool:
-        exist, cur = self._data
+        cur = self._data
         for c in word:
-            try:
-                exist, cur = cur[c]
-            except KeyError:
+            cur = cur[c]
+            if not cur:
                 return False
-        return exist
+        return cur.exist
 
     def startsWith(self, prefix: str) -> bool:
-        _, cur = self._data
+        cur = self._data
         for c in prefix:
-            try:
-                _, cur = cur[c]
-            except KeyError:
+            cur = cur[c]
+            if not cur:
                 return False
         return True
 
