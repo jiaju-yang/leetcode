@@ -15,16 +15,13 @@ class Solution:
         return result
 
     def dfs(self, left, right, result, cur):
+        if left < 0 or right < 0 or left > right:
+            return
         if left == right == 0:
             result.append(cur)
             return
-        if left == right:
-            self.dfs(left-1, right, result, cur+'(')
-            return
-        if left > 0:
-            self.dfs(left-1, right, result, cur+'(')
-        if right > 0:
-            self.dfs(left, right-1, result, cur+')')
+        self.dfs(left-1, right, result, cur+'(')
+        self.dfs(left, right-1, result, cur+')')
         return
 
 # @lc code=end
