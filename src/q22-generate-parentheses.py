@@ -10,27 +10,22 @@ from typing import List
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        counter = {'(': n, ')': n}
-        return self.dfs(counter)
-
-    def dfs(self, counter):
-        if counter['('] == 0 and counter[')'] == 0:
-            return ['']
-        if counter['('] == counter[')']:
-            counter['('] -= 1
-            result = ['(' + r for r in self.dfs(counter)]
-            counter['('] += 1
-            return result
         result = []
-        if counter['('] > 0:
-            counter['('] -= 1
-            result.extend('(' + r for r in self.dfs(counter))
-            counter['('] += 1
-        if counter[')'] > 0:
-            counter[')'] -= 1
-            result.extend(')' + r for r in self.dfs(counter))
-            counter[')'] += 1
+        self.dfs(n, n, result, '')
         return result
+
+    def dfs(self, left, right, result, cur):
+        if left == right == 0:
+            result.append(cur)
+            return
+        if left == right:
+            self.dfs(left-1, right, result, cur+'(')
+            return
+        if left > 0:
+            self.dfs(left-1, right, result, cur+'(')
+        if right > 0:
+            self.dfs(left, right-1, result, cur+')')
+        return
 
 # @lc code=end
 
