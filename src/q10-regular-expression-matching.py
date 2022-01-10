@@ -38,10 +38,36 @@ class Solution:
             else:
                 result.append(c)
         return result
+
+    def isMatchRecursive(self, s: str, p: str) -> bool:
+        return self.drive(s, self.normalize_pattern(p))
+
+    def drive(self, s, p):
+        if not p and not s:
+            return True
+        if not s:
+            if len(p[-1]) == 2:
+                return self.drive(s, p[:-1])
+            return False
+        if not p:
+            return False
+        cur_p = p[-1]
+        if len(cur_p) == 2:
+            if cur_p[0] == '.' or cur_p[0] == s[-1]:
+                return self.drive(s[:-1], p[:-1]) or self.drive(s[:-1], p) or self.drive(s, p[:-1])
+            else:
+                return self.drive(s[:], p[:-1])
+        else:
+            if cur_p == '.' or cur_p == s[-1]:
+                return self.drive(s[:-1], p[:-1])
+            else:
+                return False
+
+
 # @lc code=end
 
 
-solve = Solution().isMatch
+solve = Solution().isMatchRecursive
 
 
 def test_default():
