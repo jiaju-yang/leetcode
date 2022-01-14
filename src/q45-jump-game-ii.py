@@ -4,6 +4,7 @@
 # [45] Jump Game II
 #
 from curses.ascii import SO
+from sys import _current_frames
 from typing import List
 
 
@@ -12,17 +13,16 @@ class Solution:
     def jump(self, nums: List[int]) -> int:
         if len(nums) == 1:
             return 0
-        count = 1
-        cur_start = 0
-        cur_farest = nums[cur_start]
-        while cur_farest < len(nums) - 1:
-            count += 1
-            next_start, next_farest = cur_start, cur_farest
-            for i in range(cur_start + 1, cur_farest + 1):
-                if i + nums[i] > next_farest:
-                    next_start, next_farest = i, i + nums[i]
-            cur_start, cur_farest = next_start, next_farest
-        return count
+        jumps = 1
+        cur_farest = nums[0]
+        next_farest = 0
+        for i in range(1, len(nums)):
+            if i > cur_farest:
+                jumps += 1
+                cur_farest = next_farest
+            if i + nums[i] > next_farest:
+                next_farest = i + nums[i]
+        return jumps
 
 
 # @lc code=end
