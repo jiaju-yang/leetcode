@@ -10,14 +10,19 @@ from typing import List
 # @lc code=start
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        dp = [0] * len(nums)
-        for i in range(1, len(nums)):
-            cur_min = float('inf')
-            for j in range(i):
-                if j + nums[j] >= i and dp[j] + 1 < cur_min:
-                    cur_min = dp[j] + 1
-            dp[i] = cur_min
-        return dp[-1]
+        if len(nums) == 1:
+            return 0
+        count = 1
+        cur_start = 0
+        cur_farest = nums[cur_start]
+        while cur_farest < len(nums) - 1:
+            count += 1
+            next_start, next_farest = cur_start, cur_farest
+            for i in range(cur_start + 1, cur_farest + 1):
+                if i + nums[i] > next_farest:
+                    next_start, next_farest = i, i + nums[i]
+            cur_start, cur_farest = next_start, next_farest
+        return count
 
 
 # @lc code=end
@@ -33,3 +38,4 @@ def test_corner_cases():
     assert solve([1]) == 0
     assert solve([1, 0]) == 1
     assert solve([1, 2]) == 1
+    assert solve([1, 1, 1, 1, 1]) == 4
