@@ -13,15 +13,11 @@ class Solution:
     def jump(self, nums: List[int]) -> int:
         if len(nums) == 1:
             return 0
-        jumps = 1
-        cur_farest = nums[0]
-        next_farest = 0
+        jumps, cur_farest, next_farest = 1, nums[0], 0
         for i in range(1, len(nums)):
             if i > cur_farest:
-                jumps += 1
-                cur_farest = next_farest
-            if i + nums[i] > next_farest:
-                next_farest = i + nums[i]
+                jumps, cur_farest = jumps + 1, next_farest
+            next_farest = max(next_farest, i + nums[i])
         return jumps
 
 
