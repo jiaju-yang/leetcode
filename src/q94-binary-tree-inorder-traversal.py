@@ -17,11 +17,12 @@ class Solution:
         stack = []
         cur = root
         while cur or stack:
-            while cur:
+            if cur:
                 stack.append((cur.val, cur.right))
                 cur = cur.left
-            val, cur = stack.pop()
-            result.append(val)
+            else:
+                val, cur = stack.pop()
+                result.append(val)
         return result
 
 
