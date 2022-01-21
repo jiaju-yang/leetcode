@@ -16,23 +16,15 @@ class Solution:
         """
         if not root:
             return
-        left = root.left
-        right = root.right
-        root.left = None
-        root.right = None
-        if left:
-            self.flatten(left)
-            root.left = None
-            root.right = left
-        if right:
-            self.flatten(right)
-            right_most = self.find_the_right_most(root)
-            right_most.right = right
-
-    def find_the_right_most(self, node):
-        if not node.right:
-            return node
-        return self.find_the_right_most(node.right)
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+            node.left = None
+            node.right = stack[-1] if stack else None
 
 
 # @lc code=end
