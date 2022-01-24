@@ -34,10 +34,11 @@ class Solution:
                 return right
             elif target < matrix[middle][0]:
                 right = middle - 1
-            elif right - left == 1:
-                return left
+            elif matrix[middle][0] <= target <= matrix[middle][-1]:
+                return middle
             else:
-                left = middle
+                left = middle + 1
+                right -= 1
         return middle
 
 
