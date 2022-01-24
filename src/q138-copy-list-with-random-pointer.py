@@ -19,31 +19,17 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        vals = []
-        addr_to_index = {}
-        cur = head
-        count = 0
-        while cur:
-            vals.append(Node(cur.val))
-            addr_to_index[cur] = count
-            count += 1
-            cur = cur.next
-
-        randoms = []
-        cur = head
-        while cur:
-            if cur.random:
-                randoms.append(addr_to_index[cur.random])
-            else:
-                randoms.append(None)
-            cur = cur.next
-
-        ret = Node(1)
-        cur = ret
-        for i in range(len(vals)):
-            cur.next = vals[i]
-            if randoms[i] is not None:
-                cur.next.random = vals[randoms[i]]
-            cur = cur.next
+        prev = ret = Node(0)
+        mapping = {}
+        while head:
+            if head not in mapping:
+                mapping[head] = Node(head.val)
+            prev.next = mapping[head]
+            prev = prev.next
+            if head.random is not None and head.random not in mapping:
+                mapping[head.random] = Node(head.random.val)
+            if head.random is not None:
+                mapping[head].random = mapping[head.random]
+            head = head.next
         return ret.next
 # @lc code=end
