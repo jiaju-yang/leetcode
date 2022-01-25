@@ -10,36 +10,24 @@ from typing import List
 
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        row_i = self.which_row(matrix, target)
-        return self.binary_search(matrix[row_i], target)
-
-    def binary_search(self, row, target):
-        left, right = 0, len(row) - 1
+        m, n = len(matrix), len(matrix[0])
+        left, right = 0, self.index(m-1, n-1, n)
         while left <= right:
             middle = (left + right) >> 1
-            if target == row[middle]:
+            i, j = self.i_j(middle, n)
+            if target == matrix[i][j]:
                 return True
-            elif target < row[middle]:
+            elif target < matrix[i][j]:
                 right = middle - 1
             else:
                 left = middle + 1
         return False
 
-    def which_row(self, matrix, target):
-        m = len(matrix)
-        left, right = 0, m-1
-        while left <= right:
-            middle = (left + right) >> 1
-            if target >= matrix[right][0]:
-                return right
-            elif target < matrix[middle][0]:
-                right = middle - 1
-            elif matrix[middle][0] <= target <= matrix[middle][-1]:
-                return middle
-            else:
-                left = middle + 1
-                right -= 1
-        return middle
+    def index(self, i, j, n):
+        return i * n + j
+
+    def i_j(self, index, n):
+        return index // n, index % n
 
 
 # @lc code=end
