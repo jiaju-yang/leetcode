@@ -10,17 +10,34 @@ from .linkedlist_tools import *
 
 class Solution:
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        l = []
-        while head:
-            l.append(head)
-            head = head.next
-        l.sort(key=lambda n: n.val)
+        if not head or not head.next:
+            return head
+        prev_middle = self.get_prev_middle(head)
+        middle = prev_middle.next
+        prev_middle.next = None
+        first = self.sortList(head)
+        second = self.sortList(middle)
+        return self.merge(first, second)
+
+    def merge(self, n1, n2):
         head = cur = ListNode()
-        for node in l:
-            cur.next = node
-            cur = node
-        cur.next = None
+        while n1 and n2:
+            if n1.val > n2.val:
+                cur.next = n2
+                n2 = n2.next
+            else:
+                cur.next = n1
+                n1 = n1.next
+            cur = cur.next
+        cur.next = n2 if not n1 else n1
         return head.next
+
+    def get_prev_middle(self, head):
+        slow = fast = ListNode(None, head)
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
 
 
 # @lc code=end
