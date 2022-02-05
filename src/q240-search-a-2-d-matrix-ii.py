@@ -5,8 +5,6 @@
 #
 from typing import List
 
-# @lc code=start
-
 
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
@@ -29,6 +27,22 @@ class Solution:
             return self.searchInArea(matrix, (middle_i+1, left_top[1]), right_bottom, target) or \
                 self.searchInArea(
                     matrix, (left_top[0], middle_j+1), (middle_i, right_bottom[1]), target)
+
+# @lc code=start
+
+
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        m, n = len(matrix), len(matrix[0])
+        i, j = 0, n-1
+        while i < m and j >= 0:
+            if target == matrix[i][j]:
+                return True
+            elif target < matrix[i][j]:
+                j -= 1
+            else:
+                i += 1
+        return False
 
 
 # @lc code=end
