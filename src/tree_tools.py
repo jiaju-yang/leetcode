@@ -27,11 +27,14 @@ def construct_tree(values):
         for node in last_level:
             try:
                 val = next(it)
-                node.left = TreeNode(val) if val is not None else None
+                if node:
+                    node.left = TreeNode(val) if val is not None else None
                 val = next(it)
-                node.right = TreeNode(val) if val is not None else None
-                curr_level.append(node.left)
-                curr_level.append(node.right)
+                if node:
+                    node.right = TreeNode(val) if val is not None else None
+                if node:
+                    curr_level.append(node.left)
+                    curr_level.append(node.right)
             except StopIteration:
                 break
         last_level = curr_level
