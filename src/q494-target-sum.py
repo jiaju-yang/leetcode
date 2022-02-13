@@ -4,31 +4,25 @@
 # [494] Target Sum
 #
 from typing import List
+from collections import defaultdict
 
 # @lc code=start
 
 
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        total = sum(nums)
-        remaining = total
-        max_remaining = []
-        for num in nums:
-            remaining -= num
-            max_remaining.append(remaining)
-
-        it = enumerate(nums)
-        _, first = next(it)
-        combs = [first, -first]
-        for i, num in it:
-            if num == 0:
-                combs = combs + combs
-                continue
-            combs = [comb + new_ele
-                     for comb in combs
-                     for new_ele in (num, -num)
-                     if -max_remaining[i] <= (comb + new_ele) - target <= max_remaining[i]]
-        return sum(1 for comb in combs if comb == target)
+        it = iter(nums)
+        first = next(it)
+        dp = defaultdict(int)
+        dp[first] += 1
+        dp[-first] += 1
+        for num in it:
+            new_dp = defaultdict(int)
+            for k, v in dp.items():
+                new_dp[k+num] += v
+                new_dp[k-num] += v
+            dp = new_dp
+        return dp[target]
 
 
 # @lc code=end
@@ -46,3 +40,4 @@ def test_corner_cases():
     assert solve([1], 2) == 0
     assert solve([1], -1) == 1
     assert solve([1, 0], 1) == 2
+    assert solve([0, 0, 0, 0, 0, 0, 0, 0, 1], 1) == 256
