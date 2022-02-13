@@ -11,12 +11,9 @@ from collections import defaultdict
 
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        it = iter(nums)
-        first = next(it)
         dp = defaultdict(int)
-        dp[first] += 1
-        dp[-first] += 1
-        for num in it:
+        dp[0] = 1
+        for num in nums:
             new_dp = defaultdict(int)
             for k, v in dp.items():
                 new_dp[k+num] += v
