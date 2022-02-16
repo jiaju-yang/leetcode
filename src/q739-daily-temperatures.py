@@ -5,10 +5,8 @@
 #
 from typing import List
 
-# @lc code=start
 
-
-class Solution:
+class StackSolution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         stack = []
         ret = [0] * len(temperatures)
@@ -18,6 +16,23 @@ class Solution:
                 stack.pop()
             ret[i] = stack[-1][1] - i if stack else 0
             stack.append((tem, i))
+        return ret
+# @lc code=start
+
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        ret = [0] * len(temperatures)
+        highest_tem = 0
+        for i in range(len(temperatures)-1, -1, -1):
+            tem = temperatures[i]
+            if tem >= highest_tem:
+                highest_tem = tem
+                continue
+            j = i + 1
+            while tem >= temperatures[j]:
+                j += ret[j]
+            ret[i] = j - i
         return ret
 
 
