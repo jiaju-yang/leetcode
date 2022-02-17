@@ -12,17 +12,17 @@ from collections import Counter
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
         total = Counter(s)
-        so_far = Counter()
+        so_far = set()
         ret = []
         last_i = 0
         for i, c in enumerate(s):
             total[c] -= 1
-            so_far[c] += 1
+            so_far.add(c)
             if total[c] == 0:
-                if self.are_all_zero(so_far.keys(), total):
+                if self.are_all_zero(so_far, total):
                     ret.append(i+1 - last_i)
                     last_i = i+1
-                    so_far = Counter()
+                    so_far = set()
         return ret
 
     def are_all_zero(self, chars, counter):
