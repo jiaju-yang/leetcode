@@ -6,10 +6,8 @@
 from typing import List
 from collections import Counter
 
-# @lc code=start
 
-
-class Solution:
+class CounterSolution:
     def partitionLabels(self, s: str) -> List[int]:
         total, so_far = Counter(s), set()
         remain = last_i = 0
@@ -24,6 +22,21 @@ class Solution:
                 ret.append(i+1 - last_i)
                 last_i = i+1
                 so_far = set()
+        return ret
+
+# @lc code=start
+
+
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        lasts = {c: i for i, c in enumerate(s)}
+        ret = []
+        prev_i, max_i = 0, 0
+        for i, c in enumerate(s):
+            max_i = max(max_i, lasts[c])
+            if i == max_i:
+                ret.append(i + 1 - prev_i)
+                prev_i = i + 1
         return ret
 
 
