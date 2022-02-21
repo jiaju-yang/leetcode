@@ -16,10 +16,8 @@ class DPSolution:
                     longest = max(longest, dp[i])
         return longest
 
-# @lc code=start
 
-
-class Solution:
+class StackSolution:
     def longestValidParentheses(self, s: str) -> int:
         stack = [(')', 0)]
         longest = 0
@@ -50,6 +48,23 @@ class Solution:
                 else:
                     stack.append((')', 0))
                 longest = max(longest, stack[-1][1])
+        return longest
+
+# @lc code=start
+
+
+class Solution:
+    def longestValidParentheses(self, s: str) -> int:
+        stack = [-1]
+        longest = 0
+        for i, p in enumerate(s):
+            if p == '(':
+                stack.append(i)
+            else:
+                stack.pop()
+                if not stack:
+                    stack.append(i)
+                longest = max(longest, i-stack[-1])
         return longest
 
 
