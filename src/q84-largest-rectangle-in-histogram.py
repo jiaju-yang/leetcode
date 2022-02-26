@@ -5,10 +5,8 @@
 #
 from typing import List
 
-# @lc code=start
 
-
-class Solution:
+class DPSolution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         n = len(heights)
 
@@ -28,6 +26,22 @@ class Solution:
 
         return max((left[i] + right[i] + 1) * heights[i]
                    for i in range(n))
+
+# @lc code=start
+
+
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        heights.append(0)
+        stack = [-1]
+        max_area = 0
+        for i, cur_height in enumerate(heights):
+            while heights[stack[-1]] > cur_height:
+                height = heights[stack.pop()]
+                width = i - stack[-1] - 1
+                max_area = max(max_area, height * width)
+            stack.append(i)
+        return max_area
 
 
 # @lc code=end
