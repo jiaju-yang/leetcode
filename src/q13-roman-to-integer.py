@@ -15,24 +15,15 @@ class Solution:
         'D': 500,
         'M': 1000
     }
-    special = {
-        'V': 'I',
-        'X': 'I',
-        'L': 'X',
-        'C': 'X',
-        'D': 'C',
-        'M': 'C'
-    }
 
     def romanToInt(self, s: str) -> int:
-        previous = None
         ret = 0
-        for c in s:
-            if c in self.special and previous == self.special[c]:
-                ret -= 2 * self.mapping[previous]
-            ret += self.mapping[c]
-            previous = c
-        return ret
+        for i in range(len(s) - 1):
+            if self.mapping[s[i]] < self.mapping[s[i+1]]:
+                ret -= self.mapping[s[i]]
+            else:
+                ret += self.mapping[s[i]]
+        return ret + self.mapping[s[-1]]
 
 
 # @lc code=end
