@@ -3,6 +3,7 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+        self.next = None
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, self.__class__):
