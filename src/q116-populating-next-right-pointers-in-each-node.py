@@ -20,22 +20,16 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        levels = []
         cur = root
-        while cur:
-            levels.append(cur)
-            cur = cur.left
-        self.dfs(root, levels, 0)
+        while cur and cur.left:
+            level_head = cur.left
+            while cur:
+                cur.left.next = cur.right
+                if cur.next:
+                    cur.right.next = cur.next.left
+                cur = cur.next
+            cur = level_head
         return root
-
-    def dfs(self, node, levels, cur_level):
-        if not node:
-            return
-        if levels[cur_level] != node:
-            levels[cur_level].next = node
-            levels[cur_level] = node
-        self.dfs(node.left, levels, cur_level+1)
-        self.dfs(node.right, levels, cur_level+1)
 
 
 # @lc code=end
