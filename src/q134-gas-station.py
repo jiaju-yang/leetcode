@@ -10,19 +10,14 @@ from typing import List
 
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        n = len(gas)
-        differences = [gas[i] - cost[i] for i in range(n)]
-        if sum(differences) < 0:
-            return -1
-        i = 0
-        tank = 0
-        while i < n:
+        tank, total = 0, 0
+        for i in range(len(gas)):
             if tank <= 0:
-                start = i
-                tank = 0
-            tank += differences[i]
-            i += 1
-        return start
+                start, tank = i, 0
+            difference = gas[i] - cost[i]
+            total += difference
+            tank += difference
+        return -1 if total < 0 else start
 
 
 # @lc code=end
