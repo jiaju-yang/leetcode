@@ -9,21 +9,20 @@ from typing import List
 
 
 class Solution:
+    operators = {
+        '+': lambda a, b: a + b,
+        '-': lambda a, b: b - a,
+        '*': lambda a, b: a * b,
+        '/': lambda a, b: int(b / a),
+    }
+
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
         for token in tokens:
-            try:
+            if token in self.operators:
+                stack.append(self.operators[token](stack.pop(), stack.pop()))
+            else:
                 stack.append(int(token))
-            except ValueError:
-                o1, o2 = stack.pop(), stack.pop()
-                if token == '+':
-                    stack.append(o1+o2)
-                elif token == '-':
-                    stack.append(o2-o1)
-                elif token == '*':
-                    stack.append(o1*o2)
-                elif token == '/':
-                    stack.append(int(o2/o1))
         return stack[0]
 
 
