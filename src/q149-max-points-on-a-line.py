@@ -20,37 +20,20 @@ class Solution:
                 if x1 == x2:
                     k = float('inf')
                     m = x1
-                elif y1 == y2:
-                    k = 0
-                    m = y1
                 else:
                     a, b = y1-y2, x1-x2
-                    while True:
-                        d = self.gcd(a, b)
-                        if d == 1 or d == -1:
-                            break
-                        a, b = a // d, b // d
+                    d = self.gcd(a, b)
+                    a, b = a // d, b // d
                     k = (a, b)
                     a = a * x1
-                    while True:
-                        d = self.gcd(a, b)
-                        if d == 1 or d == -1:
-                            break
-                        a, b = a // d, b // d
+                    d = self.gcd(a, b)
+                    a, b = a // d, b // d
                     m = (y1 * b - a, b)
                 lines[(k, m)].add(i)
                 lines[(k, m)].add(j)
         return max(len(s) for s in lines.values())
 
     def gcd(self, a, b):
-        if a < 0 and b < 0:
-            return self.gcd(-a, -b)
-        if a < 0:
-            return -self.gcd(-a, b)
-        if b < 0:
-            return -self.gcd(a, -b)
-        if b > a:
-            return self.gcd(b, a)
         if b == 0:
             return a
         return self.gcd(b, a % b)
