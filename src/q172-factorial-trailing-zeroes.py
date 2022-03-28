@@ -4,10 +4,21 @@
 # [172] Factorial Trailing Zeroes
 #
 
-# @lc code=start
-class Solution:
+
+class RecursiveSolution:
     def trailingZeroes(self, n: int) -> int:
         return 0 if n == 0 else n // 5 + self.trailingZeroes(n // 5)
+
+# @lc code=start
+
+
+class Solution:
+    def trailingZeroes(self, n: int) -> int:
+        count = 0
+        while n != 0:
+            n //= 5
+            count += n
+        return count
 
 
 # @lc code=end
