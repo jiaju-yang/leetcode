@@ -19,23 +19,23 @@ class Solution:
         Do not return anything, modify board in-place instead.
         """
         m, n = len(board), len(board[0])
-        new_board = [[0] * n for i in range(m)]
         for i in range(m):
             for j in range(n):
                 count = 0
                 for offset_x, offset_y in self.adjs:
                     adj_i, adj_j = i + offset_x, j + offset_y
                     if 0 <= adj_i < m and 0 <= adj_j < n:
-                        count += board[adj_i][adj_j]
-                if count < 2:
-                    new_board[i][j] = 0
-                elif count > 3:
-                    new_board[i][j] = 0
-                elif count == 3:
-                    new_board[i][j] = 1
-                else:
-                    new_board[i][j] = board[i][j]
-        board[:] = new_board[:]
+                        count += board[adj_i][adj_j] % 2
+                if count == 3 and board[i][j] == 0:
+                    board[i][j] = 2
+                elif board[i][j] == 1 and (count < 2 or count > 3):
+                    board[i][j] = 3
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == 2:
+                    board[i][j] = 1
+                elif board[i][j] == 3:
+                    board[i][j] = 0
 
 
 # @lc code=end
