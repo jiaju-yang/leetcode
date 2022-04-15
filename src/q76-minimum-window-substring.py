@@ -10,29 +10,28 @@ from typing import Counter
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        minimum_substring = ''
-        counter = Counter(t)
+        result = ''
         remain = len(t)
-        left, right = 0, 0
-        for right, char in enumerate(s):
-            if char in counter:
-                if counter[char] > 0:
-                    remain = max(0, remain - 1)
-                counter[char] -= 1
-                while True:
-                    if s[left] not in counter:
-                        left += 1
-                    else:
-                        if counter[s[left]] < 0:
-                            counter[s[left]] += 1
-                            left += 1
+        counter = Counter(t)
+        start = 0
+        for end, c in enumerate(s):
+            if c in counter:
+                if counter[c] > 0:
+                    remain -= 1
+                counter[c] -= 1
+                if remain == 0:
+                    while True:
+                        if s[start] in counter:
+                            if counter[s[start]] >= 0:
+                                break
+                            else:
+                                counter[s[start]] += 1
+                                start += 1
                         else:
-                            break
-                sub = s[left:right+1]
-                if remain == 0 and (minimum_substring == '' or len(minimum_substring) > len(sub)):
-                    minimum_substring = sub
-
-        return minimum_substring
+                            start += 1
+                    if not result or len(result) > len(s[start:end+1]):
+                        result = s[start:end+1]
+        return result
 
 
 # @lc code=end
