@@ -10,27 +10,21 @@ from typing import Counter
 
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
+        if not t:
+            return ''
         result = ''
         remain = len(t)
         counter = Counter(t)
         start = 0
         for end, c in enumerate(s):
-            if c in counter:
-                if counter[c] > 0:
-                    remain -= 1
-                counter[c] -= 1
-                if remain == 0:
-                    while True:
-                        if s[start] in counter:
-                            if counter[s[start]] >= 0:
-                                break
-                            else:
-                                counter[s[start]] += 1
-                                start += 1
-                        else:
-                            start += 1
-                    if not result or len(result) > len(s[start:end+1]):
-                        result = s[start:end+1]
+            if counter[c] > 0:
+                remain -= 1
+            counter[c] -= 1
+            while start < end and counter[s[start]] < 0:
+                counter[s[start]] += 1
+                start += 1
+            if remain == 0 and (not result or end - start + 1 < len(result)):
+                result = s[start: end + 1]
         return result
 
 
