@@ -7,10 +7,10 @@
 # @lc code=start
 class Solution:
     def climbStairs(self, n: int) -> int:
-        a, b = 1, 1
-        for i in range(n-1):
-            a, b = b, a+b
-        return b
+        n_minus_1, cur_n = 1, 1
+        for _ in range(n-1):
+            n_minus_1, cur_n = cur_n, n_minus_1 + cur_n
+        return cur_n
 
 
 class MatrixSolution:
@@ -37,10 +37,11 @@ class MatrixSolution:
                 for k in range(len(m1[0])):
                     result[i][j] += (m1[i][k] * m2[k][j])
         return result
+
 # @lc code=end
 
 
-solve = MatrixSolution().climbStairs
+solve = Solution().climbStairs
 
 
 def test_matrix_multiply():
