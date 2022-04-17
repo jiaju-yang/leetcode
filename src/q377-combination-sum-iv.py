@@ -12,11 +12,9 @@ class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
         dp = [0] * (target + 1)
         dp[0] = 1
-        for sub_target in range(1, target+1):
-            for num in nums:
-                if sub_target - num >= 0:
-                    dp[sub_target] += dp[sub_target - num]
-        return dp[target]
+        for i in range(1, target + 1):
+            dp[i] = sum(dp[i-num] for num in nums if i - num >= 0)
+        return dp[-1]
 
 # @lc code=end
 
