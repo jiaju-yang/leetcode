@@ -6,14 +6,12 @@
 from typing import List
 
 
-class Solution:
+class DPSolution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        dp = [1] * (len(nums) + 1)
-        dp[0] = 0
+        dp = [1] * len(nums)
         for i in range(1, len(nums)):
-            for j in range(i):
-                if nums[i] > nums[j]:
-                    dp[i+1] = max(dp[i+1], dp[j+1] + 1)
+            dp[i] = max((dp[j] + 1 for j in range(i) if nums[j] < nums[i]),
+                        default=dp[i])
         return max(dp)
 
 # @lc code=start
@@ -49,6 +47,7 @@ solve = Solution().lengthOfLIS
 
 
 def test_default():
+    assert solve([1, 3, 6, 7, 9, 4, 10, 5, 6]) == 6
     assert solve([10, 9, 2, 5, 3, 7, 101, 18]) == 4
     assert solve([0, 1, 0, 3, 2, 3]) == 4
     assert solve([7, 7, 7, 7, 7, 7, 7]) == 1
