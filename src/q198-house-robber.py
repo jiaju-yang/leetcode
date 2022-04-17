@@ -10,9 +10,8 @@ from typing import List
 class Solution:
     def rob(self, nums: List[int]) -> int:
         second_last, last = 0, nums[0]
-        for i in range(2, len(nums)+1):
-            current = max(second_last + nums[i-1], last)
-            second_last, last = last, current
+        for i in range(1, len(nums)):
+            second_last, last = last, max(last, second_last + nums[i])
         return last
 
 
