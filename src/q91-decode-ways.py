@@ -6,19 +6,22 @@
 
 # @lc code=start
 class Solution:
-    def numDecodings(self, s: str) -> int:
-        it = iter(s)
-        p_char = next(it)
-        previous, current = 1, (1 if self.is_valid(p_char) else 0)
-        for c in it:
-            previous, current, p_char = current, (
-                current if self.is_valid(c) else 0) + (previous if self.is_valid(p_char + c) else 0), c
-        return current
+    def __init__(self) -> None:
+        self.valid = {str(i) for i in range(1, 27)}
 
-    def is_valid(self, t):
-        if t.startswith('0'):
-            return False
-        return 1 <= int(t) <= 26
+    def numDecodings(self, s: str) -> int:
+        if s.startswith('0'):
+            return 0
+        last, second_last = 1, 1
+        for i in range(1, len(s)):
+            cur = 0
+            if s[i] in self.valid:
+                cur += last
+            if s[i-1:i+1] in self.valid:
+                cur += second_last
+            last, second_last = cur, last
+        return last
+
 # @lc code=end
 
 
