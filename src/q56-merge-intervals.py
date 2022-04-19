@@ -12,12 +12,11 @@ from operator import itemgetter
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         result = []
-        for interval in sorted(intervals, key=itemgetter(0)):
-            if result and interval[0] <= result[-1][1]:
-                if result[-1][1] <= interval[1]:
-                    result[-1][1] = interval[1]
-            else:
+        for interval in sorted(intervals):
+            if not result or interval[0] > result[-1][1]:
                 result.append(interval)
+            else:
+                result[-1][1] = max(result[-1][1], interval[1])
         return result
 
 
