@@ -10,10 +10,8 @@ from typing import List
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        it = iter(nums)
-        max_sum = next(it)
-        max_so_far = max(0, max_sum)
-        for num in it:
+        max_sum, max_so_far = float('-inf'), 0
+        for num in nums:
             max_sum = max(max_sum, num + max_so_far)
             max_so_far = max(0, num + max_so_far)
         return max_sum
