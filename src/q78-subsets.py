@@ -14,7 +14,6 @@ class Solution:
         for num in nums:
             result = result + [previous + [num] for previous in result]
         return result
-        result[:]
 
 # @lc code=end
 
