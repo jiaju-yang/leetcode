@@ -7,23 +7,24 @@ from .tree_tools import *
 from typing import Optional
 
 
-class InorderSolution:
+class RecursviveSolution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         remain = k
 
         def dfs(node):
             if not node:
                 return
-            val = dfs(node.left)
-            if val is not None:
-                return val
+            result = dfs(node.left)
+            if result is not None:
+                return result
             nonlocal remain
             remain -= 1
             if remain == 0:
                 return node.val
-            count = dfs(node.right)
-            if count is not None:
-                return count
+            result = dfs(node.right)
+            if result is not None:
+                return result
+
         return dfs(root)
 
 # @lc code=start
