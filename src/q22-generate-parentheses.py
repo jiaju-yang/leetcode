@@ -5,10 +5,8 @@
 #
 from typing import List
 
-# @lc code=start
 
-
-class Solution:
+class DFSSolution:
     def generateParenthesis(self, n: int) -> List[str]:
         result = []
         self.dfs(n, n, result, '')
@@ -24,10 +22,25 @@ class Solution:
         self.dfs(left, right-1, result, cur+')')
         return
 
+# @lc code=start
+
+
+class DPSolution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        dp = [['']]
+        for i in range(1, n+1):
+            cur = []
+            for j in range(i):
+                for left in dp[j]:
+                    for right in dp[i-j-1]:
+                        cur.append(f'({left}){right}')
+            dp.append(cur)
+        return dp[-1]
+
 # @lc code=end
 
 
-solve = Solution().generateParenthesis
+solve = DPSolution().generateParenthesis
 
 
 def test_default():
