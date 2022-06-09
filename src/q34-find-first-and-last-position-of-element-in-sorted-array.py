@@ -12,35 +12,26 @@ class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         if not nums:
             return [-1, -1]
-        return [self.find_head(nums, target), self.find_tail(nums, target)]
+        return [self.find_head(nums, 0, len(nums) - 1, target),
+                self.find_tail(nums, 0, len(nums) - 1, target)]
 
-    def find_head(self, nums, target):
-        start, end = 0, len(nums) - 1
-        while end >= start:
-            middle = (end + start) >> 1
-            if nums[middle] > target:
-                end = middle - 1
-            elif nums[middle] == target:
-                if middle == 0 or nums[middle] != nums[middle - 1]:
-                    return middle
-                end = middle - 1
+    def find_head(self, nums, left, right, target):
+        while left < right:
+            middle = (left + right) >> 1
+            if nums[middle] < target:
+                left = middle + 1
             else:
-                start = middle + 1
-        return -1
+                right = middle
+        return left if nums[left] == target else -1
 
-    def find_tail(self, nums, target):
-        start, end = 0, len(nums) - 1
-        while end >= start:
-            middle = (end + start) >> 1
+    def find_tail(self, nums, left, right, target):
+        while left < right:
+            middle = ((left + right) >> 1) + 1
             if nums[middle] > target:
-                end = middle - 1
-            elif nums[middle] == target:
-                if middle == len(nums) - 1 or nums[middle] != nums[middle + 1]:
-                    return middle
-                start = middle + 1
+                right = middle - 1
             else:
-                start = middle + 1
-        return -1
+                left = middle
+        return left if nums[left] == target else -1
 
 
 # @lc code=end
