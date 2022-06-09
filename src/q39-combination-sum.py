@@ -9,7 +9,7 @@ from typing import List
 from collections import defaultdict
 
 
-class Solution:
+class DPSolution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         dp = defaultdict(list)
         dp[0] = [[]]
@@ -24,6 +24,23 @@ class Solution:
                         potential.append(comb + [num])
                     dp[sub_target].extend(potential)
         return dp[target]
+
+
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        ret = []
+        self.dfs(candidates, target, [], ret)
+        return ret
+
+    def dfs(self, candidates, target, path, ret):
+        if target < 0:
+            return
+        if target == 0:
+            ret.append(path)
+            return
+        for i in range(len(candidates)):
+            self.dfs(candidates[i:], target - candidates[i],
+                     path + [candidates[i]], ret)
 
 
 # @lc code=end
