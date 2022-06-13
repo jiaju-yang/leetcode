@@ -15,11 +15,11 @@ class Solution:
             middle = (left + right) >> 1
             if nums[middle] == target:
                 return middle
-            elif nums[middle] > target:
-                right = middle
-            else:
+            elif nums[middle] < target:
                 left = middle + 1
-        return right + 1 if nums[right] < target else right
+            else:
+                right = middle
+        return left if nums[left] >= target else left + 1
 
 
 # @lc code=end
