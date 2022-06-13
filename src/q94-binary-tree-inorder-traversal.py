@@ -11,19 +11,17 @@ from typing import Optional, List
 
 class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        if not root:
-            return []
-        result = []
         stack = []
+        ret = []
         cur = root
         while cur or stack:
-            if cur:
-                stack.append((cur.val, cur.right))
+            while cur:
+                stack.append(cur)
                 cur = cur.left
-            else:
-                val, cur = stack.pop()
-                result.append(val)
-        return result
+            cur = stack.pop()
+            ret.append(cur.val)
+            cur = cur.right
+        return ret
 
 
 # @lc code=end
