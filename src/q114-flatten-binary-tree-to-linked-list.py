@@ -16,15 +16,20 @@ class Solution:
         """
         if not root:
             return
-        stack = [root]
-        while stack:
-            node = stack.pop()
-            if node.right:
-                stack.append(node.right)
-            if node.left:
-                stack.append(node.left)
+        return self.dfs(root)[0]
+
+    def dfs(self, node):
+        left, right = node.left, node.right
+        tail = node
+        if left:
+            left_head, tail = self.dfs(left)
             node.left = None
-            node.right = stack[-1] if stack else None
+            node.right = left_head
+        if right:
+            right_head, new_tail = self.dfs(right)
+            tail.right = right_head
+            tail = new_tail
+        return node, tail
 
 
 # @lc code=end
