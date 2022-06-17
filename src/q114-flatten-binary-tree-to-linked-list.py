@@ -6,10 +6,8 @@
 from typing import Optional
 from .tree_tools import *
 
-# @lc code=start
 
-
-class Solution:
+class DFSSolution:
     def flatten(self, root: Optional[TreeNode]) -> None:
         """
         Do not return anything, modify root in-place instead.
@@ -31,6 +29,26 @@ class Solution:
             tail = new_tail
         return node, tail
 
+# @lc code=start
+
+
+class Solution:
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        previous = TreeNode(right=root)
+        stack = []
+        if root:
+            stack.append(root)
+        while stack:
+            cur = stack.pop()
+            left, right = cur.left, cur.right
+            cur.left = cur.right = None
+            previous.right = cur
+            previous = cur
+            if right:
+                stack.append(right)
+            if left:
+                stack.append(left)
+
 
 # @lc code=end
 solve = Solution().flatten
@@ -51,3 +69,7 @@ def test_corner_cases():
     tree = construct_tree([0])
     solve(tree)
     assert (tree.val == 0 and tree.right is None and tree.left is None)
+
+    tree = None
+    solve(tree)
+    assert tree is None
