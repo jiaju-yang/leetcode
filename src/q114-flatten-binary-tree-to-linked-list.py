@@ -34,20 +34,17 @@ class DFSSolution:
 
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
-        previous = TreeNode(right=root)
-        stack = []
-        if root:
-            stack.append(root)
+        if not root:
+            return
+        stack = [root]
         while stack:
-            cur = stack.pop()
-            left, right = cur.left, cur.right
-            cur.left = cur.right = None
-            previous.right = cur
-            previous = cur
-            if right:
-                stack.append(right)
-            if left:
-                stack.append(left)
+            node = stack.pop()
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+            node.left = None
+            node.right = stack[-1] if stack else None
 
 
 # @lc code=end
