@@ -3,6 +3,7 @@
 #
 # [131] Palindrome Partitioning
 #
+from functools import cache
 from typing import List
 from collections import defaultdict
 
@@ -15,10 +16,17 @@ class Solution:
         dp[0].append([])
         for i in range(len(s)):
             for j in range(i + 1):
-                sub = s[j:i+1]
-                if sub == sub[::-1]:
-                    dp[i+1].extend(perm + [sub] for perm in dp[j])
+                if self.is_palindrome(j, i, s):
+                    dp[i+1].extend(perm + [s[j:i+1]] for perm in dp[j])
         return dp[len(s)]
+
+    @cache
+    def is_palindrome(self, i, j, s):
+        if j <= i:
+            return True
+        if s[i] == s[j] and self.is_palindrome(i + 1, j - 1, s):
+            return True
+        return False
 
 
 # @lc code=end
