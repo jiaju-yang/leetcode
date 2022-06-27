@@ -11,10 +11,10 @@ from typing import List
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         m, n = len(matrix), len(matrix[0])
-        left, right = 0, self.index(m-1, n-1, n)
+        left, right = 0, m * n - 1
         while left <= right:
             middle = (left + right) >> 1
-            i, j = self.i_j(middle, n)
+            i, j = middle // n, middle % n
             if target == matrix[i][j]:
                 return True
             elif target < matrix[i][j]:
@@ -22,12 +22,6 @@ class Solution:
             else:
                 left = middle + 1
         return False
-
-    def index(self, i, j, n):
-        return i * n + j
-
-    def i_j(self, index, n):
-        return index // n, index % n
 
 
 # @lc code=end
